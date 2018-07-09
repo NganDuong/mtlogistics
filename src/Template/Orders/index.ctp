@@ -26,3 +26,8 @@
     </tr>
     <?php endforeach; ?>
 </table>
+<div class="pagination">
+    <?php for ($i = 1; $i <= $total; $i++) { ?>    
+       <?= $this->Html->link($i, ['action' => 'index', $i]) ?>    
+    <?php }?>
+</div>

@@ -26,15 +26,7 @@
 	    <legend>Order</legend>
 	    <div class="row">
 	    	<div class="col-sm-6">
-			    <p>
-			    	<label for="product_name">Product</label>
-				    <input id="product_name" type="text" name="product_name" value="" placeholder="Product's name">
-			    </p>
-			    <p>
-			    	<label for="product_quantity">Quantity</label>
-				    <input id="product_quantity" type="number" name="product_quantity" value="" placeholder="Product's quantity">
-			    </p>
-			    <p>
+	    		<p>
 			    	<label for="product_category_id">Category</label>
 				    <select name="product_category_id">
 				    	<?php foreach ($productCategories as $category):?>
@@ -42,6 +34,14 @@
 						<?php endforeach;?>
 				    </select>
 			    </p>
+			    <p>
+			    	<label for="product_name">Product</label>
+				    <input id="product_name" type="text" name="product_name" value="" placeholder="Product's name">
+			    </p>
+			    <p>
+			    	<label for="product_quantity">Quantity</label>
+				    <input id="product_quantity" type="number" name="product_quantity" value="" placeholder="Product's quantity">
+			    </p>			    
 			    <p>
 			    	<label for="order_date">Order's date</label>
 				    <input id="order_date" type="date" name="order_date" value="<?php echo date('Y-m-d'); ?>" placeholder="Order at">

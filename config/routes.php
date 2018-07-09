@@ -49,6 +49,7 @@ Router::defaultRouteClass(DashedRoute::class);
 Router::scope('/', function (RouteBuilder $routes) {
     $routes->scope('/', ['controller' => 'Orders'], function($routes) {
         $routes->connect('/', ['action' => 'index']);
+        $routes->connect('/:id', ['action' => 'index'], ['pass' => ['id']]);
     });
 
     $routes->scope('/searchs', ['controller' => 'Searchs'], function($routes) {
@@ -64,7 +65,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     });
 
 	$routes->scope('/orders', ['controller' => 'Orders'], function($routes) {
-        $routes->connect('/', ['action' => 'index']);
+        $routes->connect('/:id', ['action' => 'index'], ['pass' => ['id']]);
         $routes->connect('/create', ['action' => 'create']);
         $routes->connect('/view/:id', ['action' => 'view'], ['pass' => ['id']]);
         $routes->connect('/delete/:id', ['action' => 'delete'], ['pass' => ['id']]);

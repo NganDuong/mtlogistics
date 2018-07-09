@@ -22,3 +22,23 @@
 .top-bar-dropdown {
     margin-right: 20px;
 }
+
+.pagination {
+    display: inline-block;
+    float: right;
+}
+
+.pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.pagination a.active {
+    background-color: #4CAF50 !important;
+    color: white !important;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd !important;
+}

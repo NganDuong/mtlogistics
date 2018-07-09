@@ -25,18 +25,39 @@ class OrdersController extends CrudController {
         $this->loadComponent('DeliveryMethod');
     }
 
-    public function index() {
+    public function index($page = 0) {
+        $conditions = [];
+        $total = $this->model->find('all', [
+            'conditions' => $conditions,
+        ])->count();
+
+        $_page = !empty($page) ? $page : PAGE;
     	$orders = $this->model->find('all', [
-            'conditions' => [],
+            'conditions' => $conditions,
             'contain' => [
                 'Products',
                 'Customers',
             ],
-            // 'limit' => 10,
-            // 'page' => 1,
+            'limit' => LIMIT,
+            'page' => $_page,
         ])->toArray();
         // Log::info($orders);
         $this->set(compact('orders'));
+        $next = 0;
+        $prev = 0;
+        $hasMore = (($total - $_page * LIMIT) > 0) ? $total - $_page * LIMIT : 0;
+
+        if ($_page * LIMIT < $total) {
+           $next = $_page + 1;
+        }
+
+        if ($_page - 1 > 0) {
+           $prev = $_page - 1;
+        }
+        $this->set(compact('total'));
+        $this->set(compact('hasMore'));
+        $this->set(compact('next'));
+        $this->set(compact('prev'));
     }
 
     public function create() {
