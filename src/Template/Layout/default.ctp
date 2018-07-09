@@ -46,7 +46,7 @@ $cakeDescription = 'MT Logistic';
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
                 <h1>
-                    <?= $this->Html->link('Orders', ['controller' => 'Orders', 'action' => 'index']) ?>
+                    <?= $this->Html->link(__('Orders'), ['controller' => 'Orders', 'action' => 'index']) ?>
                 </h1>
             </li>
         </ul>

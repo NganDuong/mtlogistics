@@ -69,7 +69,7 @@ class OrdersController extends CrudController {
                 'price' => $this->request->data['product_price'],
                 'quantity' => $this->request->data['product_quantity'],
                 'create_note' => $this->request->data['create_note'],
-                'order_date' => date('Y/m/d H:i:s', strtotime(str_replace('/', '-', $this->request->data['order_date']))),
+                'order_date' => date('Y/m/d', strtotime(str_replace('/', '-', $this->request->data['order_date']))),
             ];
 
             $order = $this->model->newEntity();

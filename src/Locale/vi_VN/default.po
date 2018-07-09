@@ -1,0 +1,68 @@
+msgid "No."
+msgstr "Số"
+
+msgid "Customer"
+msgstr "Khách hàng"
+
+msgid "Customers"
+msgstr "Khách hàng"
+
+msgid "Customer's phone"
+msgstr "Số điện thoại"
+
+msgid "Product"
+msgstr "Sản phẩm"
+
+msgid "Products"
+msgstr "Sản phẩm"
+
+msgid "Price"
+msgstr "Giá"
+
+msgid "Quantity"
+msgstr "Số lượng"
+
+msgid "Order at"
+msgstr "Ngày đặt hàng"
+
+msgid "Actions"
+msgstr "Thao tác"
+
+msgid "Order"
+msgstr "Đơn hàng"
+
+msgid "Orders"
+msgstr "Đơn hàng"
+
+msgid "Edit"
+msgstr "Sửa"
+
+msgid "Delete"
+msgstr "Xóa"
+
+msgid "Create an order"
+msgstr "Tạo đơn hàng"
+
+msgid "Search"
+msgstr "Tìm kiếm"
+
+msgid "Product Categories"
+msgstr "Danh mục hàng"
+
+msgid "Login"
+msgstr "Đăng nhập"
+
+msgid "Name"
+msgstr "Tên"
+
+msgid "Nickname"
+msgstr "Nickname"
+
+msgid "Phone number"
+msgstr "Số điện thoại"
+
+msgid "Address"
+msgstr "Địa chỉ"
+
+msgid "Category"
+msgstr "Loại"

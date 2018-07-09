@@ -1,6 +1,6 @@
 <table>
     <tr>
-        <th><?= __('#')?></th>
+        <th><?= __('No.')?></th>
         <th><?= __('Name')?></th>
         <th><?= __('Actions')?></th>
     </tr>
@@ -10,9 +10,9 @@
         <td><?= h($category->id) ?></td>
         <td><?= h($category->name) ?></td>
         <td>
-            <?= $this->Html->link('Edit', ['action' => 'update', $category->id]) ?>
+            <?= $this->Html->link(__('Edit'), ['action' => 'update', $category->id]) ?>
             |
-            <?= $this->Html->link('Delete', ['action' => 'delete', $category->id]) ?>    
+            <?= $this->Html->link(__('Delete'), ['action' => 'delete', $category->id]) ?>    
         </td>
     </tr>
     <?php endforeach; ?>

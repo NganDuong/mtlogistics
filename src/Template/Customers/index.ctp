@@ -13,9 +13,9 @@
         <td><?= h($customer->phone) ?></td>
         <td><?= h($customer->address) ?></td>
         <td>
-            <?= $this->Html->link('Edit', ['action' => 'update', $customer->id]) ?>
+            <?= $this->Html->link(__('Edit'), ['action' => 'update', $customer->id]) ?>
             |
-            <?= $this->Html->link('Delete', ['action' => 'delete', $customer->id]) ?>    
+            <?= $this->Html->link(__('Delete'), ['action' => 'delete', $customer->id]) ?>    
         </td>
     </tr>
     <?php endforeach; ?>

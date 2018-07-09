@@ -14,9 +14,9 @@
         <td><?= h($product->product_category->name) ?></td>
         <td><?= h($product->size) ?></td>
         <td>
-            <?= $this->Html->link('Edit', ['action' => 'update', $product->id]) ?>
+            <?= $this->Html->link(__('Edit'), ['action' => 'update', $product->id]) ?>
             |
-            <?= $this->Html->link('Delete', ['action' => 'delete', $product->id]) ?>    
+            <?= $this->Html->link(__('Delete'), ['action' => 'delete', $product->id]) ?>    
         </td>
     </tr>
     <?php endforeach; ?>

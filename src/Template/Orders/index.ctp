@@ -19,9 +19,9 @@
         <td><?= h($order->quantity) ?></td>
         <td><?= h($order->order_date) ?></td>
         <td>
-            <?= $this->Html->link('Edit', ['action' => 'update', $order->id]) ?>
+            <?= $this->Html->link(__('Edit'), ['action' => 'update', $order->id]) ?>
             |
-            <?= $this->Html->link('Delete', ['action' => 'delete', $order->id]) ?>    
+            <?= $this->Html->link(__('Delete'), ['action' => 'delete', $order->id]) ?>    
         </td>
     </tr>
     <?php endforeach; ?>
