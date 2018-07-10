@@ -1,3 +1,3 @@
 <?php
-define('LIMIT', 1);
+define('LIMIT', 10);
 define('PAGE', 1);

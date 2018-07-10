@@ -80,7 +80,8 @@ class OrdersController extends CrudController {
 
             if (!$this->Customers->save($customer)) {
                 Log::info($customer->errors());
-                $this->Flash->error(__('Unable to create/update customer.'));
+
+                return $this->Flash->error(__('Unable to create/update customer.'));
             }
             // Log::info($customer);
             // Create order.
@@ -100,7 +101,8 @@ class OrdersController extends CrudController {
                 $this->Customers->delete($customer);
                 $this->Products->delete($product);
                 Log::info($order->errors());
-                $this->Flash->error(__('Unable to create/update order.'));
+
+                return $this->Flash->error(__('Unable to create/update order.'));
             }
 
             // Create product.
@@ -116,23 +118,28 @@ class OrdersController extends CrudController {
 
             if (!$this->Products->save($product)) {
                 Log::info($product->errors());
-                $this->Flash->error(__('Unable to create/update product.'));
+
+                return $this->Flash->error(__('Unable to create/update product.'));
             }
 
             if (!empty($this->request->data['product_image']['name'])){
                 $fileName = $this->request->data['product_image']['name'];
                 $uploadPath = 'uploads/' . $fileName;
                 $uploadFile = WWW_ROOT . $uploadPath;
+
                 if (move_uploaded_file($this->request->data['product_image']['tmp_name'], $uploadFile)){
                     $this->loadModel('ProductPhotos');
                     $uploadData = $this->ProductPhotos->newEntity();
                     $uploadData->product_id = $product->id;
                     $uploadData->path = $uploadPath;
+
                     if (!$this->ProductPhotos->save($uploadData)) {
-                        $this->Flash->error(__('Unable to upload file, please try again.'));
+
+                        return $this->Flash->error(__('Unable to upload file, please try again.'));
                     }
                 } else{
-                    $this->Flash->error(__('Unable to upload file, please try again.'));
+
+                    return $this->Flash->error(__('Unable to upload file, please try again.'));
                 }
             }
 
@@ -208,7 +215,8 @@ class OrdersController extends CrudController {
                 $this->Customers->delete($customer);
                 $this->Products->delete($product);
                 Log::info($order->errors());
-                $this->Flash->error(__('Unable to create/update order.'));
+
+                return $this->Flash->error(__('Unable to create/update order.'));
             }
 
             // Create product.
@@ -224,23 +232,28 @@ class OrdersController extends CrudController {
 
             if (!$this->Products->save($product)) {
                 Log::info($product->errors());
-                $this->Flash->error(__('Unable to create/update product.'));
+
+                return $this->Flash->error(__('Unable to create/update product.'));
             }
 
             if (!empty($this->request->data['product_image']['name'])){
                 $fileName = $this->request->data['product_image']['name'];
                 $uploadPath = 'uploads/' . $fileName;
                 $uploadFile = WWW_ROOT . $uploadPath;
+
                 if (move_uploaded_file($this->request->data['product_image']['tmp_name'], $uploadFile)){
                     $this->loadModel('ProductPhotos');
                     $uploadData = $order->product->product_photo;
                     $uploadData->product_id = $product->id;
                     $uploadData->path = $uploadPath;
+
                     if (!$this->ProductPhotos->save($uploadData)) {
-                        $this->Flash->error(__('Unable to upload file, please try again.'));
+
+                        return $this->Flash->error(__('Unable to upload file, please try again.'));
                     }
                 } else{
-                    $this->Flash->error(__('Unable to upload file, please try again.'));
+
+                    return $this->Flash->error(__('Unable to upload file, please try again.'));
                 }
             }
 
@@ -289,17 +302,17 @@ class OrdersController extends CrudController {
 
             if (!empty($order)) {
                 $order->sent = Time::now();
-                $order->payment_method_id = $this->request->data['payment_method_id'];
 
                 if (!$this->model->save($order)) {
                     Log::info($order->errors());
-                    $this->Flash->error(__('Unable to confirm sent.'));
+
+                    return $this->Flash->error(__('Unable to confirm sent.'));
                 }
 
                 return $this->redirect(['action' => 'index']);
             }
 
-            $this->Flash->error(__('Unable to confirm sent.'));
+            return $this->Flash->error(__('Unable to confirm sent.'));
         }
     }
 
@@ -317,16 +330,18 @@ class OrdersController extends CrudController {
                 $order->delivery_note = $this->request->data['delivery_note'];
                 $order->delivery_method_id = $this->request->data['delivery_method_id'];
                 $order->delivery_name = $this->request->data['delivery_name'];
+                $order->payment_method_id = $this->request->data['payment_method_id'];
 
                 if (!$this->model->save($order)) {
                     Log::info($order->errors());
-                    $this->Flash->error(__('Unable to confirm delivered.'));
+                    
+                    return $this->Flash->error(__('Unable to confirm delivered.'));
                 }
 
                 return $this->redirect(['action' => 'index']);
             }
 
-            $this->Flash->error(__('Unable to confirm delivered.'));
+            return $this->Flash->error(__('Unable to confirm delivered.'));
         }
     }
 }

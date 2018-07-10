@@ -27,23 +27,23 @@
 						<span><?= __('Sent at')?>: </span>
 						<span><?= $order->sent?></span>
 					</div>
-					<div class="col-sm-6">
-				        <span><?= __('Payment method')?>: </span>
-				        <span><?= $order->payment_method->name?></span>
-				    </div>
 				</div>
 			<?php endif;?>
 			<?php if (!empty($order->delivered)): ?>
-				<div class="row">	
-					<div class="col-sm-4">
+				<div class="row">
+					<div class="col-sm-3">
+				        <span><?= __('Payment method')?>: </span>
+				        <span><?= $order->payment_method->name?></span>
+				    </div>
+					<div class="col-sm-3">
 						<span><?= __('Delivered at')?>: </span>
 						<span><?= $order->delivered?></span>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 				        <span><?= __('Delivery method')?>: </span>
 				        <span><?= $order->delivery_method->name?></span>
 				    </div>
-				    <div class="col-sm-4">
+				    <div class="col-sm-3">
 				        <span><?= __('Carrier')?>: </span>
 				        <span><?= $order->delivery_name?></span>
 				    </div>
@@ -100,6 +100,7 @@
 	<div class="panel-footer">
 		<div class="row">			
 			<div class="col-sm-6">
+				<?= $this->Html->link(__('Edit'), ['action' => 'update', $order->id]) ?>
 			</div>
 			<div class="col-sm-6">
 				<?php if (empty($order->sent)): ?>
@@ -113,21 +114,15 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title" style="text-align: center;">SENT CONFIRMATION</h4>
+										<h4 class="modal-title" style="text-align: center;"><?= __('SENT CONFIRMATION')?></h4>
 									</div>
 									<div class="modal-body">
 										<form method="post" action="/orders/sent/<?= $order->id?>">
-											<label>Choose a payment method</label>
-											<select name="payment_method_id">
-										    	<?php foreach ($paymentMethods as $paymentMethod):?>
-												    <option value="<?= $paymentMethod->id?>"><?= $paymentMethod->name?></option>
-												<?php endforeach;?>
-										    </select>
-										    <input type="submit" value="Submit">
+										    <input type="submit" value="<?= __('Submit')?>">
 										</form>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal"><?= __('Close')?></button>
 									</div>
 								</div>
 
@@ -146,10 +141,17 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title" style="text-align: center;">DELIVERED CONFIRMATION</h4>
+										<h4 class="modal-title" style="text-align: center;"><?= __('DELIVERED CONFIRMATION')?></h4>
 									</div>
 									<div class="modal-body">
 										<form method="post" action="/orders/delivered/<?= $order->id?>">
+											<label>Choose a payment method</label>
+											<select name="payment_method_id">
+										    	<?php foreach ($paymentMethods as $paymentMethod):?>
+												    <option value="<?= $paymentMethod->id?>"><?= $paymentMethod->name?></option>
+												<?php endforeach;?>
+										    </select>
+
 											<label>Choose a delivery method</label>
 											<select name="delivery_method_id">
 										    	<?php foreach ($deliveryMethods as $deliveryMethod):?>
@@ -163,11 +165,11 @@
 										    <label>Note: </label>
 										    <input id="delivery_note" type="text" name="delivery_note" value="" placeholder="Note">
 
-										    <input type="submit" value="Submit">
+										    <input type="submit" value="<?= __('Submit')?>">
 										</form>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal"><?= __('Close')?></button>
 									</div>
 								</div>
 

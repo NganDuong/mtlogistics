@@ -1,33 +1,33 @@
 <form method="post" enctype="multipart/form-data" action="/orders/create">
 	<fieldset>
-	    <legend>Customer</legend>
+	    <legend><?= __('Customer')?></legend>
 	    <div class="row">
 	    	<div class="col-sm-6">
 	    		<p>
-			    	<label for="customer_name">Name</label>
-				    <input id="customer_name" type="text" name="customer_name" value="" placeholder="Customer's name">
+			    	<label for="customer_name"><?= __('Name')?></label>
+				    <input id="customer_name" type="text" name="customer_name" value="" placeholder="<?= __('Name')?>">
 			    </p>
 			    <p>
-			    	<label for="customer_nick_name">Nickname</label>
-				    <input id="customer_nick_name" type="text" name="customer_nick_name" value="" placeholder="Customer's nickname">
+			    	<label for="customer_nick_name"><?= __('Nickname')?></label>
+				    <input id="customer_nick_name" type="text" name="customer_nick_name" value="" placeholder="<?= __('Nickname')?>">
 			    </p>
 	    	</div>
 		    <div class="col-sm-6">	
 			    <p>
-			    	<label for="customer_phone">Phone</label>
-				    <input id="customer_phone" type="text" name="customer_phone" value="" placeholder="Customer's phone number">
+			    	<label for="customer_phone"><?= __('Phone')?> (*)</label>
+				    <input id="customer_phone" type="text" name="customer_phone" value="" placeholder="<?= __('Phone')?>" required>
 			    </p>
 			    <p>
-			    	<label for="customer_address">Address</label>
-				    <input id="customer_address" type="text" name="customer_address" value="" placeholder="Customer's address">
+			    	<label for="customer_address"><?= __('Address')?></label>
+				    <input id="customer_address" type="text" name="customer_address" value="" placeholder="<?= __('Address')?>">
 			    </p>
 			</div>
 	    </div>		    
-	    <legend>Order</legend>
+	    <legend><?= __('Order')?></legend>
 	    <div class="row">
 	    	<div class="col-sm-6">
 	    		<p>
-			    	<label for="product_category_id">Category</label>
+			    	<label for="product_category_id"><?= __('Category')?> (*)</label>
 				    <select name="product_category_id">
 				    	<?php foreach ($productCategories as $category):?>
 						    <option value="<?= $category->id?>"><?= $category->name?></option>
@@ -35,37 +35,37 @@
 				    </select>
 			    </p>
 			    <p>
-			    	<label for="product_name">Product</label>
-				    <input id="product_name" type="text" name="product_name" value="" placeholder="Product's name">
+			    	<label for="product_name"><?= __('Product')?> (*)</label>
+				    <input id="product_name" type="text" name="product_name" value="" placeholder="<?= __('Product')?>" required>
 			    </p>
 			    <p>
-			    	<label for="product_quantity">Quantity</label>
-				    <input id="product_quantity" type="number" name="product_quantity" value="" placeholder="Product's quantity">
+			    	<label for="product_quantity"><?= __('Quantity')?> (*)</label>
+				    <input id="product_quantity" type="number" name="product_quantity" value="" placeholder="<?= __('Quantity')?>" required>
 			    </p>			    
 			    <p>
-			    	<label for="order_date">Order's date</label>
-				    <input id="order_date" type="date" name="order_date" value="<?php echo date('Y-m-d'); ?>" placeholder="Order at">
+			    	<label for="order_date"><?= __('Date')?></label>
+				    <input id="order_date" type="date" name="order_date" value="<?php echo date('Y-m-d'); ?>" placeholder="<?= __('Date')?>">
 			    </p>
 			</div>
 			<div class="col-sm-6">
 			    <p>
-			    	<label for="product_size">Size</label>
-				    <input id="product_size" type="text" name="product_size" value="" placeholder="Product's size">
+			    	<label for="product_size"><?= __('Size')?> (*)</label>
+				    <input id="product_size" type="text" name="product_size" value="" placeholder="<?= __('Size')?>" required>
 			    </p>
 			    <p>
-			    	<label for="product_price">Price</label>
-				    <input id="product_price" type="text" name="product_price" value="" placeholder="Product's price">
+			    	<label for="product_price"><?= __('Price')?> (*)</label>
+				    <input id="product_price" type="text" name="product_price" value="" placeholder="<?= __('Price')?>" required>
 			    </p>
 			    <p>
-			    	<label for="create_note">Note</label>
-				    <input id="create_note" type="text" name="create_note" value="" placeholder="Order's note">
+			    	<label for="create_note"><?= __('Note')?></label>
+				    <input id="create_note" type="text" name="create_note" value="" placeholder="<?= __('Note')?>">
 			    </p>
 			    <p>
-			    	<label for="product_image">Image</label>
+			    	<label for="product_image"><?= __('Image')?></label>
 				    <input id="product_image" type="file" name="product_image">
 			    </p>			    
 			</div>
 		</div>
-	    <input type="submit" value="Submit">
+	    <input type="submit" value="<?= __('Submit')?>">
   	</fieldset>
 </form>

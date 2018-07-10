@@ -66,3 +66,18 @@ msgstr "Địa chỉ"
 
 msgid "Category"
 msgstr "Loại"
+
+msgid "Phone"
+msgstr "Số điện thoại"
+
+msgid "Note"
+msgstr "Ghi chú"
+
+msgid "Date"
+msgstr "Ngày"
+
+msgid "Image"
+msgstr "Hình ảnh"
+
+msgid "Submit"
+msgstr "Gửi"
