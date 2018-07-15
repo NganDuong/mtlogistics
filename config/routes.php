@@ -64,6 +64,12 @@ Router::scope('/', function (RouteBuilder $routes) {
         $routes->connect('/update/:id', ['action' => 'update'], ['pass' => ['id']]);
     });
 
+    $routes->scope('/users', ['controller' => 'Users'], function($routes) {
+        $routes->connect('/login', ['action' => 'login']);
+        $routes->connect('/', ['action' => 'index']);
+        $routes->connect('/create', ['action' => 'create']);
+    });
+
 	$routes->scope('/orders', ['controller' => 'Orders'], function($routes) {
         $routes->connect('/:id', ['action' => 'index'], ['pass' => ['id']]);
         $routes->connect('/create', ['action' => 'create']);

@@ -1,3 +1,4 @@
+<?= $this->Html->link(__('Create'), ['action' => 'create']) ?>
 <table>
     <tr>
         <th><?= __('No.')?></th>

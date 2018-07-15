@@ -23,6 +23,16 @@ class OrdersController extends CrudController {
         $this->loadComponent('ProductCategory');
         $this->loadComponent('PaymentMethod');
         $this->loadComponent('DeliveryMethod');
+        $this->loadComponent('User');
+    }
+
+    public function isAuthorized($user) {
+        $action = $this->request->getParam('action');
+        // The add and tags actions are always allowed to logged in users.
+        if (in_array($action, ['index', 'view', 'update', 'delete', 'sent', 'delivered'])) {
+
+            return true;
+        }
     }
 
     public function index($page = 0) {
@@ -76,6 +86,14 @@ class OrdersController extends CrudController {
     }
 
     public function create() {
+        $userRoleId = $this->User->getUserRoleId($this->Auth->user('id'));
+        $allowRoleIds = [ADMIN, SENDER];
+
+        if (!in_array($userRoleId, $allowRoleIds)) {
+
+            $this->Flash->error(__('You are not authorized to access that location'));
+        }
+
         $productCategories = $this->ProductCategory->list();
         $this->set(compact('productCategories'));
 
@@ -188,8 +206,6 @@ class OrdersController extends CrudController {
             ],
         ])->first();
 
-        // Log::info($order);
-
         if (!empty($order)) {
 
             if (!empty($order->order_date)) {
@@ -227,12 +243,23 @@ class OrdersController extends CrudController {
             // Create order.
             $orderDatas = [
                 'order_code' => $customer->phone,
-                'customer_id' => $customer->id,
-                'price' => $this->request->data['product_price'],
-                'quantity' => $this->request->data['product_quantity'],
-                'create_note' => $this->request->data['create_note'],
-                'order_date' => date('Y/m/d H:i:s', strtotime(str_replace('/', '-', $this->request->data['order_date']))),
+                'customer_id' => $customer->id
             ];
+
+            $userRoleId = $this->User->getUserRoleId($this->Auth->user('id'));
+            $allowRoleIds = [ADMIN, SENDER];
+            
+            if (in_array($userRoleId, $allowRoleIds)) {
+
+                $_orderDatas = [
+                    'price' => $this->request->data['product_price'],
+                    'quantity' => $this->request->data['product_quantity'],
+                    'create_note' => $this->request->data['create_note'],
+                    'order_date' => date('Y/m/d H:i:s', strtotime(str_replace('/', '-', $this->request->data['order_date']))),
+                ];
+
+                $orderDatas = array_merge($orderDatas, $_orderDatas);
+            }
 
             $order = $this->model->patchEntity($order, $orderDatas);
 
@@ -243,44 +270,48 @@ class OrdersController extends CrudController {
 
                 return $this->Flash->error(__('Unable to create/update order.'));
             }
+            $allowRoleIds = [ADMIN, SENDER];
 
-            // Create product.
-            $productDatas = [
-                'order_id' => $order->id,
-                'name' => $this->request->data['product_name'],
-                'product_category_id' => $this->request->data['product_category_id'],
-                'size' => $this->request->data['product_size'],
-            ];
-            $this->loadModel('Products');
-            $product = $order->product;
-            $product = $this->Products->patchEntity($product, $productDatas);
+            if (in_array($userRoleId, $allowRoleIds)) {
 
-            if (!$this->Products->save($product)) {
-                Log::info($product->errors());
+                // Create product.
+                $productDatas = [
+                    'order_id' => $order->id,
+                    'name' => $this->request->data['product_name'],
+                    'product_category_id' => $this->request->data['product_category_id'],
+                    'size' => $this->request->data['product_size'],
+                ];
+                $this->loadModel('Products');
+                $product = $order->product;
+                $product = $this->Products->patchEntity($product, $productDatas);
 
-                return $this->Flash->error(__('Unable to create/update product.'));
-            }
+                if (!$this->Products->save($product)) {
+                    Log::info($product->errors());
 
-            if (!empty($this->request->data['product_image']['name'])){
-                $fileName = $this->request->data['product_image']['name'];
-                $uploadPath = 'uploads/' . $fileName;
-                $uploadFile = WWW_ROOT . $uploadPath;
+                    return $this->Flash->error(__('Unable to create/update product.'));
+                }
 
-                if (move_uploaded_file($this->request->data['product_image']['tmp_name'], $uploadFile)){
-                    $this->loadModel('ProductPhotos');
-                    $uploadData = $order->product->product_photo;
-                    $uploadData->product_id = $product->id;
-                    $uploadData->path = $uploadPath;
+                if (!empty($this->request->data['product_image']['name'])){
+                    $fileName = $this->request->data['product_image']['name'];
+                    $uploadPath = 'uploads/' . $fileName;
+                    $uploadFile = WWW_ROOT . $uploadPath;
 
-                    if (!$this->ProductPhotos->save($uploadData)) {
+                    if (move_uploaded_file($this->request->data['product_image']['tmp_name'], $uploadFile)){
+                        $this->loadModel('ProductPhotos');
+                        $uploadData = $order->product->product_photo;
+                        $uploadData->product_id = $product->id;
+                        $uploadData->path = $uploadPath;
+
+                        if (!$this->ProductPhotos->save($uploadData)) {
+
+                            return $this->Flash->error(__('Unable to upload file, please try again.'));
+                        }
+                    } else{
 
                         return $this->Flash->error(__('Unable to upload file, please try again.'));
                     }
-                } else{
-
-                    return $this->Flash->error(__('Unable to upload file, please try again.'));
                 }
-            }
+            }  
 
             return $this->redirect(['action' => 'index']);
         }
@@ -317,6 +348,14 @@ class OrdersController extends CrudController {
     }
 
     public function sent($id) {
+        $userRoleId = $this->User->getUserRoleId($this->Auth->user('id'));
+        $allowRoleIds = [ADMIN, SENDER];
+
+        if (!in_array($userRoleId, $allowRoleIds)) {
+            $this->Flash->error(__('You are not authorized to access that location'));
+
+            return $this->redirect(['action' => 'index']);
+        }
 
         if ($this->request->is('post')) {
             $order = $this->model->find('all', [
@@ -342,6 +381,14 @@ class OrdersController extends CrudController {
     }
 
     public function delivered($id) {
+        $userRoleId = $this->User->getUserRoleId($this->Auth->user('id'));
+        $allowRoleIds = [ADMIN, DELIVER];
+
+        if (!in_array($userRoleId, $allowRoleIds)) {
+            $this->Flash->error(__('You are not authorized to access that location'));
+
+            return $this->redirect(['action' => 'index']);
+        }
 
         if ($this->request->is('post')) {
             $order = $this->model->find('all', [

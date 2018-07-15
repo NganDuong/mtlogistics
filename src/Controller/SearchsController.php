@@ -16,8 +16,13 @@ class SearchsController extends AppController {
         $this->loadComponent('DeliveryMethod');
     }
 
-    private function orderSearch($conditions) {
-        
+    public function isAuthorized($user) {
+        $action = $this->request->getParam('action');
+        // The add and tags actions are always allowed to logged in users.
+        if (in_array($action, ['index', 'view', 'update', 'delete', 'sent', 'delivered'])) {
+
+            return true;
+        }
     }
 
     public function index($page = 0) {

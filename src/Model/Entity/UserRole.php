@@ -7,7 +7,7 @@ use Cake\ORM\Entity;
 /**
 * 
 */
-class AdminUser extends Entity {
+class UserRole extends Entity {
 	
 	protected $_accessible = [
         '*' => true,

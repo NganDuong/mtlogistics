@@ -10,13 +10,18 @@ use Cake\ORM\Query;
 /**
 * 
 */
-class AdminUsersTable extends Table {
+class UsersTable extends Table {
 	
     public function initialize(array $config) {
 		parent::initialize($config);
-		$this->table('admin_users');
+		$this->table('users');
         $this->primaryKey('id');
-        $this->addBehavior('Timestamp');      
+        $this->addBehavior('Timestamp');
+
+        $this->belongsTo('UserRoles', [
+            'className' => 'UserRoles',
+            'foreignKey' => 'user_role_id',
+        ]);
 	}
 
 	public function validationDefault(Validator $validator) {
@@ -34,5 +39,11 @@ class AdminUsersTable extends Table {
             ->notEmpty('password', 'Please input your password');
         
         return $validator;
+    }
+
+    public function buildRules(RulesChecker $rules) {
+        $rules->add($rules->existsIn(['user_role_id'], 'UserRoles', "Invalid role id"));
+        
+        return $rules;
     }
 }

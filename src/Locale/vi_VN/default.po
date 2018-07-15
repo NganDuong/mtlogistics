@@ -93,3 +93,6 @@ msgstr "Đã gửi"
 
 msgid "Delivered"
 msgstr "Đã giao"
+
+msgid "Create"
+msgstr "Thêm"
