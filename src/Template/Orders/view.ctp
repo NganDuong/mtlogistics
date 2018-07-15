@@ -100,11 +100,11 @@
 	<div class="panel-footer">
 		<div class="row">			
 			<div class="col-sm-6">
-				<?= $this->Html->link(__('Edit'), ['action' => 'update', $order->id]) ?>
+				<?= $this->Html->link(__('Edit'), ['action' => 'update', $order->id], ['class' => 'button button-link']) ?>
 			</div>
 			<div class="col-sm-6">
 				<?php if (empty($order->sent)): ?>
-					<form method="post" action="/orders/sent/<?= $order->id?>">
+					<form method="post" action="/orders/sent/<?= $order->id?>" style="float: right;">
 					    <input type="submit" value="<?= __('Sent')?>">
 					</form>
 				<?php endif;?>

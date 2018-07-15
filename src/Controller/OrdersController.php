@@ -92,6 +92,8 @@ class OrdersController extends CrudController {
         if (!in_array($userRoleId, $allowRoleIds)) {
 
             $this->Flash->error(__('You are not authorized to access that location'));
+            
+            return $this->redirect(['action' => 'index']);
         }
 
         $productCategories = $this->ProductCategory->list();

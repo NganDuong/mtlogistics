@@ -43,7 +43,7 @@
     background-color: #ddd !important;
 }
 
-input[type="submit"] {
+input[type="submit"], .button-link {
     color: #fff;
     background-color: #5cb85c;
     border-color: #4cae4c;
