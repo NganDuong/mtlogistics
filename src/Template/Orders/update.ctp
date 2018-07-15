@@ -72,6 +72,11 @@
 			    </p>			    
 			</div>
 		</div>
-	    <input type="submit" value="<?= __('Submit')?>">
+		<div class="row">
+			<div class="col-sm-6"></div>
+			<div class="col-sm-6">
+				<input style="float: right;"  type="submit" value="<?= __('Submit')?>">
+			</div>			
+		</div>	    
   	</fieldset>
 </form>

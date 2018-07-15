@@ -42,6 +42,21 @@ class OrdersController extends CrudController {
             'page' => $_page,
         ])->toArray();
         // Log::info($orders);
+
+        foreach ($orders as $order) {
+            if (!empty($order->sent)) {
+                $order->sent_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/checked.png';
+            } else {
+                $order->sent_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/uncheck.png';
+            }
+
+            if (!empty($order->delivered)) {
+                $order->delivered_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/checked.png';
+            } else {
+                $order->delivered_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/uncheck.png';
+            }
+        }            
+
         $this->set(compact('orders'));
         $next = 0;
         $prev = 0;
@@ -75,7 +90,17 @@ class OrdersController extends CrudController {
             ];
 
             $this->loadModel('Customers');
-            $customer = $this->Customers->newEntity();
+
+            $customer = $this->Customers->find('all', [
+                'conditions' => [
+                    'Customers.phone' => $customerDatas['phone'],
+                ],
+            ])->first();
+
+            if (empty($customer)) {
+                $customer = $this->Customers->newEntity();
+            }
+            
             $customer = $this->Customers->patchEntity($customer, $customerDatas);
 
             if (!$this->Customers->save($customer)) {
@@ -86,7 +111,7 @@ class OrdersController extends CrudController {
             // Log::info($customer);
             // Create order.
             $orderDatas = [
-                'order_code' => '#' . Time::now()->toUnixString(),
+                'order_code' => Time::now()->toUnixString(),
                 'customer_id' => $customer->id,
                 'price' => $this->request->data['product_price'],
                 'quantity' => $this->request->data['product_quantity'],
@@ -196,7 +221,7 @@ class OrdersController extends CrudController {
 
             if (!$this->Customers->save($customer)) {
                 Log::info($customer->errors());
-                $this->Flash->error(__('Unable to create/update customer.'));
+                return $this->Flash->error(__('Unable to create/update customer.'));
             }
             // Log::info($customer);
             // Create order.

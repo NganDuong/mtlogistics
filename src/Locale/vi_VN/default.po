@@ -81,3 +81,15 @@ msgstr "Hình ảnh"
 
 msgid "Submit"
 msgstr "Gửi"
+
+msgid "CONFIRMATION"
+msgstr "Xác nhận"
+
+msgid "Label"
+msgstr "Nhãn hiệu"
+
+msgid "Sent"
+msgstr "Đã gửi"
+
+msgid "Delivered"
+msgstr "Đã giao"

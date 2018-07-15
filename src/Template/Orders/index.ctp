@@ -7,6 +7,8 @@
         <th><?= __('Price')?></th>
         <th><?= __('Quantity')?></th>
         <th><?= __('Order at')?></th>
+        <th><?= __('Sent')?></th>
+        <th><?= __('Delivered')?></th>
         <th><?= __('Actions')?></th>
     </tr>
     <?php foreach ($orders as $order): ?>
@@ -18,6 +20,12 @@
         <td><?= h($order->price) ?></td>
         <td><?= h($order->quantity) ?></td>
         <td><?= h($order->order_date) ?></td>
+        <td>
+            <img src="<?= !empty($order->sent_img) ? $order->sent_img : '' ?>" alt="Photo" style="max-width:  20px;">
+        </td>
+        <td>
+            <img src="<?= !empty($order->delivered_img) ? $order->delivered_img : '' ?>" alt="Photo" style="max-width:  20px;">
+        </td>
         <td>
             <?= $this->Html->link(__('Edit'), ['action' => 'update', $order->id]) ?>
             |

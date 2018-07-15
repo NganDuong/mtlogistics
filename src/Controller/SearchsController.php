@@ -13,6 +13,7 @@ class SearchsController extends AppController {
     public function initialize() {
         parent::initialize();
         $this->loadComponent('ProductCategory');
+        $this->loadComponent('DeliveryMethod');
     }
 
     private function orderSearch($conditions) {
@@ -22,6 +23,9 @@ class SearchsController extends AppController {
     public function index($page = 0) {
     	$productCategories = $this->ProductCategory->list();
         $this->set(compact('productCategories'));
+
+        $deliveryMethods = $this->DeliveryMethod->list();
+        $this->set(compact('deliveryMethods'));
 
         if ($this->request->is('post')) {
             // Search by order.
@@ -201,6 +205,23 @@ class SearchsController extends AppController {
                         $orderConditions = array_merge($orderConditions, $_conditions);
                     }                        
                 }
+            }
+
+            // Search by carrier.
+            $carrierConditions = [];
+
+            if (!empty($this->request->data['delivery_method_id'])) {
+                $_conditions = [
+                    'Orders.delivery_method_id' => $this->request->data['delivery_method_id'],
+                ];
+                $orderConditions = array_merge($orderConditions, $_conditions);
+            }
+
+            if (!empty($this->request->data['carrier'])) {
+                $_conditions = [
+                    'Orders.delivery_name' => $this->request->data['carrier'],
+                ];
+                $orderConditions = array_merge($orderConditions, $_conditions);
             }
 
             if (!empty($orderConditions)) {

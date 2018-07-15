@@ -75,7 +75,7 @@
 		<br>
 		<div class="row">			
 			<div class="col-sm-3">
-				<span><?= __('Name')?>: </span>
+				<span><?= __('Label')?>: </span>
 				<span><?= $order->product->name?></span>
 			</div>
 			<div class="col-sm-3">
@@ -104,31 +104,9 @@
 			</div>
 			<div class="col-sm-6">
 				<?php if (empty($order->sent)): ?>
-					<button style="float: right; margin: 5px" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#sentModal"><?= __('Sent')?></button>
-
-					<div class="container">
-						<!-- Modal -->
-						<div class="modal fade" id="sentModal" role="dialog">
-							<div class="modal-dialog">    
-								<!-- Modal content-->
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title" style="text-align: center;"><?= __('SENT CONFIRMATION')?></h4>
-									</div>
-									<div class="modal-body">
-										<form method="post" action="/orders/sent/<?= $order->id?>">
-										    <input type="submit" value="<?= __('Submit')?>">
-										</form>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal"><?= __('Close')?></button>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
+					<form method="post" action="/orders/sent/<?= $order->id?>">
+					    <input type="submit" value="<?= __('Sent')?>">
+					</form>
 				<?php endif;?>
 				<?php if (!empty($order->sent) && empty($order->delivered)): ?>
 					<button style="float: right; margin: 5px" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#deliveredModal"><?= __('Delivered')?></button>
@@ -141,7 +119,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title" style="text-align: center;"><?= __('DELIVERED CONFIRMATION')?></h4>
+										<h4 class="modal-title" style="text-align: center;"><?= __('CONFIRMATION')?></h4>
 									</div>
 									<div class="modal-body">
 										<form method="post" action="/orders/delivered/<?= $order->id?>">

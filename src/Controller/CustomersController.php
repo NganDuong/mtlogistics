@@ -32,4 +32,25 @@ class CustomersController extends CrudController {
 
         $this->set(compact('customer'));
     }
+
+    public function update($id) {
+        $customer = $this->model->find('all', [
+            'conditions' => [
+                'id' => $id,
+            ],
+        ])->first();
+
+        $this->set(compact('customer'));
+
+        if ($this->request->is('post')) {
+            $customer = $this->model->patchEntity($customer, $this->request->data);
+
+            if (!$this->model->save($customer)) {
+                Log::info($customer->errors());
+                return $this->Flash->error(__('Unable to update customer.'));
+            }
+            
+            return $this->redirect(['action' => 'index']);
+        }
+    }
 }
