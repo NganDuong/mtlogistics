@@ -13,7 +13,13 @@
 			<p><?= $this->Html->link(__('Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></p>
 			<p><?= $this->Html->link(__('Product Categories'), ['controller' => 'ProductCategories', 'action' => 'index']) ?></p>
 			<p>
-				<?= $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login']) ?>
+				<?php 
+					if (!empty($this->request->session()->read('Auth.User'))) {
+						echo $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout']);
+					} else {
+						echo $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login']);
+					}
+				?>
 			</p>
 		</div>
 	</div>

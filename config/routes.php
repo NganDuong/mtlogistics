@@ -66,6 +66,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->scope('/users', ['controller' => 'Users'], function($routes) {
         $routes->connect('/login', ['action' => 'login']);
+        $routes->connect('/logout', ['action' => 'logout']);
         $routes->connect('/', ['action' => 'index']);
         $routes->connect('/create', ['action' => 'create']);
     });

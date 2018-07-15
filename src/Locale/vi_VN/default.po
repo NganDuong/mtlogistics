@@ -96,3 +96,6 @@ msgstr "Đã giao"
 
 msgid "Create"
 msgstr "Thêm"
+
+msgid "Logout"
+msgstr "Đăng xuất"

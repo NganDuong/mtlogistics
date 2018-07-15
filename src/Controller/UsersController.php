@@ -46,7 +46,27 @@ class UsersController extends CrudController {
 	        if ($user) {
 	            $this->Auth->setUser($user);
 
-	            return $this->redirect($this->Auth->redirectUrl());
+	            $userRoleId = $this->User->getUserRoleId($this->Auth->user('id'));
+
+		        switch ($userRoleId) {
+		        	case ADMIN:
+		        		
+		        		return $this->redirect(['controller' => 'Orders', 'action' => 'index']);
+
+		        	case SENDER:
+		        		
+		        		return $this->redirect(['controller' => 'Orders', 'action' => 'create']);
+
+		        	case DELIVER:
+		        		
+		        		return $this->redirect(['controller' => 'Searchs', 'action' => 'index']);
+		        	
+		        	default:
+
+		        		return $this->redirect($this->Auth->redirectUrl());
+		        }
+
+	            
 	        }
 	        $this->Flash->error('Your username or password is incorrect.');
 	    }
@@ -54,6 +74,7 @@ class UsersController extends CrudController {
 
 	public function logout() {
 	    $this->Flash->success('You are now logged out.');
+	    
 	    return $this->redirect($this->Auth->logout());
 	}
 
