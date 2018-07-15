@@ -8,7 +8,6 @@ use Cake\View\View;
 use Cake\Log\Log;
 
 class ContentHelper extends Helper {
-	public $components = ['Auth'];
 
     public function pageHeader($currentPage = false) {
         $view = new \Cake\View\View();
