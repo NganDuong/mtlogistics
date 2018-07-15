@@ -117,3 +117,6 @@ msgstr "Ghi chú"
 
 msgid "Delivery Method"
 msgstr "Phương thức vận chuyển"
+
+msgid "All"
+msgstr "Tất cả"

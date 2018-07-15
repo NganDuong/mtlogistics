@@ -62,7 +62,7 @@ class SearchsController extends AppController {
 
             if (!empty($this->request->data['order_date'])) {
                 $_conditions = [
-                    'Orders.order_date' => date('Y/m/d', strtotime(str_replace('/', '-', $this->request->data['order_date']))),
+                    'Orders.order_date' => date('Y/m/d H:i:s', strtotime(str_replace('/', '-', $this->request->data['order_date']))),
                 ];
 
                 $orderConditions = array_merge($orderConditions, $_conditions);
@@ -228,6 +228,8 @@ class SearchsController extends AppController {
                 ];
                 $orderConditions = array_merge($orderConditions, $_conditions);
             }
+
+            Log::info($orderConditions);
 
             if (!empty($orderConditions)) {
                 $this->loadModel('Orders');
