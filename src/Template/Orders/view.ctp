@@ -1,5 +1,9 @@
-<div class="panel panel-default">
-	<div class="panel-heading" style="text-align: center;"># <?= $order->order_code?></div>
+<div class="panel panel-info">
+	<div class="panel-heading" style="text-align: center;">
+		<h3>
+			<?= __('Order')?> #<?= $order->order_code?>
+		</h3>			
+	</div>
 	<div class="panel-body">
 		<h5 style="font-weight: bold"><?= __('Order')?></h5>
 		<br>
@@ -123,25 +127,25 @@
 									</div>
 									<div class="modal-body">
 										<form method="post" action="/orders/delivered/<?= $order->id?>">
-											<label>Choose a payment method</label>
+											<label><?= __('Choose a payment method')?></label>
 											<select name="payment_method_id">
 										    	<?php foreach ($paymentMethods as $paymentMethod):?>
 												    <option value="<?= $paymentMethod->id?>"><?= $paymentMethod->name?></option>
 												<?php endforeach;?>
 										    </select>
 
-											<label>Choose a delivery method</label>
+											<label><?= __('Choose a delivery method')?></label>
 											<select name="delivery_method_id">
 										    	<?php foreach ($deliveryMethods as $deliveryMethod):?>
 												    <option value="<?= $deliveryMethod->id?>"><?= $deliveryMethod->name?></option>
 												<?php endforeach;?>
 										    </select>
 
-										    <label>Carrier: </label>
-										    <input id="delivery_name" type="text" name="delivery_name" value="" placeholder="Carrier's name">
+										    <label><?= __('Carrier')?>: </label>
+										    <input id="delivery_name" type="text" name="delivery_name" value="" placeholder="<?= __('Carrier')?>">
 
-										    <label>Note: </label>
-										    <input id="delivery_note" type="text" name="delivery_note" value="" placeholder="Note">
+										    <label><?= __('Note')?>: </label>
+										    <input id="delivery_note" type="text" name="delivery_note" value="" placeholder="<?= __('Note')?>">
 
 										    <input type="submit" value="<?= __('Submit')?>">
 										</form>

@@ -99,3 +99,18 @@ msgstr "Thêm"
 
 msgid "Logout"
 msgstr "Đăng xuất"
+
+msgid "Detail"
+msgstr "Chi tiết"
+
+msgid "Choose a payment method"
+msgstr "Chọn phương thức thanh toán"
+
+msgid "Choose a delivery method"
+msgstr "Chọn phương thức vận chuyển"
+
+msgid "Carrier"
+msgstr "Vận chuyển"
+
+msgid "Note"
+msgstr "Ghi chú"
