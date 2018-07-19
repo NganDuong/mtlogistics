@@ -102,12 +102,25 @@ class OrdersController extends CrudController {
         if ($this->request->is('post')) {
             // Log::info($this->request);
             // Create customer.
+
             $customerDatas = [
-                'name' => $this->request->data['customer_name'],
-                'nickname' => $this->request->data['customer_nick_name'],
+                // 'name' => $this->request->data['customer_name'],
+                // 'nickname' => $this->request->data['customer_nick_name'],
                 'phone' => $this->request->data['customer_phone'],
-                'address' => $this->request->data['customer_address'],
+                // 'address' => $this->request->data['customer_address'],
             ];
+
+            if (!empty($this->request->data['customer_name'])) {
+                $customerDatas['name'] = $this->request->data['customer_name'];
+            }
+
+            if (!empty($this->request->data['customer_nick_name'])) {
+                $customerDatas['nickname'] = $this->request->data['customer_nick_name'];
+            }
+
+            if (!empty($this->request->data['customer_address'])) {
+                $customerDatas['address'] = $this->request->data['customer_address'];
+            }
 
             $this->loadModel('Customers');
 
@@ -120,7 +133,7 @@ class OrdersController extends CrudController {
             if (empty($customer)) {
                 $customer = $this->Customers->newEntity();
             }
-            
+
             $customer = $this->Customers->patchEntity($customer, $customerDatas);
 
             if (!$this->Customers->save($customer)) {
@@ -256,11 +269,23 @@ class OrdersController extends CrudController {
             // Log::info($this->request);
             // Create customer.
             $customerDatas = [
-                'name' => $this->request->data['customer_name'],
-                'nickname' => $this->request->data['customer_nick_name'],
+                // 'name' => $this->request->data['customer_name'],
+                // 'nickname' => $this->request->data['customer_nick_name'],
                 'phone' => $this->request->data['customer_phone'],
-                'address' => $this->request->data['customer_address'],
+                // 'address' => $this->request->data['customer_address'],
             ];
+
+            if (!empty($this->request->data['customer_name'])) {
+                $customerDatas['name'] = $this->request->data['customer_name'];
+            }
+
+            if (!empty($this->request->data['customer_nick_name'])) {
+                $customerDatas['nickname'] = $this->request->data['customer_nick_name'];
+            }
+
+            if (!empty($this->request->data['customer_address'])) {
+                $customerDatas['address'] = $this->request->data['customer_address'];
+            }
 
             $this->loadModel('Customers');
             $customer = $order->customer;
