@@ -134,6 +134,7 @@ class OrdersController extends CrudController {
                 'conditions' => [],
                 'fields' => [
                     'id',
+                    'order_code',
                 ],
                 'order' => [
                     'id' => 'DESC',
@@ -143,7 +144,11 @@ class OrdersController extends CrudController {
             if (empty($latestOrder)) {
                 $nextOrderId = '00001';
             } else {
-                $nextOrderId = (int)$latestOrder->id + 1;
+                // Log::info('Origin');
+                // Log::info($latestOrder->order_code);
+                $nextOrderId = (int)$latestOrder->order_code + 1;
+                // Log::info('Increased');
+                // Log::info($nextOrderId);
                 $nextOrderId = (string)$nextOrderId;
 
                 $nextOrderId = str_pad($nextOrderId, 5, "0", STR_PAD_LEFT);
