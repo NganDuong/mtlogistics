@@ -141,7 +141,7 @@ class OrdersController extends CrudController {
             ])->first();
 
             if (empty($latestOrder)) {
-                $nextOrderId = '1';
+                $nextOrderId = '00001';
             } else {
                 $nextOrderId = (int)$latestOrder->id + 1;
                 $nextOrderId = (string)$nextOrderId;
