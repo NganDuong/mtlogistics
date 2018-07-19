@@ -38,7 +38,7 @@ class SearchsController extends AppController {
 
         	if (!empty($this->request->data['order_no'])) {
         		$_conditions = [
-        			'Orders.order_code' => $this->request->data['order_no'],
+        			'Orders.order_code LIKE' => $this->request->data['order_no'],
         		];
 
         		$orderConditions = array_merge($orderConditions, $_conditions);
