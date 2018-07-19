@@ -229,7 +229,7 @@ class SearchsController extends AppController {
                 $orderConditions = array_merge($orderConditions, $_conditions);
             }
 
-            Log::info($orderConditions);
+            // Log::info($orderConditions);
 
             if (!empty($orderConditions)) {
                 $this->loadModel('Orders');
@@ -246,6 +246,21 @@ class SearchsController extends AppController {
                     'limit' => LIMIT,
                     'page' => $_page,
                 ])->toArray();
+
+                foreach ($orders as $order) {
+                    if (!empty($order->sent)) {
+                        $order->sent_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/checked.png';
+                    } else {
+                        $order->sent_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/uncheck.png';
+                    }
+
+                    if (!empty($order->delivered)) {
+                        $order->delivered_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/checked.png';
+                    } else {
+                        $order->delivered_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/uncheck.png';
+                    }
+                }
+                
                 $this->set('orders', $orders);
                 $total = count($orders);
                 $next = 0;

@@ -42,8 +42,7 @@ class ProductsTable extends Table {
 
         $validator
             ->requirePresence('name', 'create', 'Please input your name')
-            ->notEmpty('name', 'Please input your name')
-            ->add('name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->notEmpty('name', 'Please input your name');
 
         $validator
             ->integer('product_category_id')

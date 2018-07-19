@@ -12,7 +12,7 @@
 				    <input id="customer_nick_name" type="text" name="customer_nick_name" value="<?= $order->customer->nickname?>" placeholder="<?= $order->customer->nickname?>">
 			    </p>
 	    	</div>
-		    <div class="col-sm-6">	
+		    <div class="col-sm-6">
 			    <p>
 			    	<label for="customer_phone"><?= __('Phone')?></label>
 				    <input id="customer_phone" type="text" name="customer_phone" value="<?= $order->customer->phone?>" placeholder="<?= $order->customer->phone?>">
@@ -28,7 +28,7 @@
 	    	<div class="col-sm-6">
 	    		<p>
 			    	<label for="product_category_id"><?= __('Category')?></label>
-				    <select name="product_category_id">
+				    <select name="product_category_id" <?= ($userRoleId===3 ? 'style="pointer-events:none;"' : '')?> >
 				    	<?php foreach ($productCategories as $category):?>
 						    <option value="<?= $category->id?>" <?php echo ($category->id == $order->product->product_category_id) ? 'selected="selected"' : '';?> ><?= $category->name?></option>
 						<?php endforeach;?>
@@ -36,29 +36,29 @@
 			    </p>
 			    <p>
 			    	<label for="product_name"><?= __('Product')?></label>
-				    <input id="product_name" type="text" name="product_name" value="<?= $order->product->name?>" placeholder="<?= $order->product->name?>">
+				    <input id="product_name" type="text" name="product_name" value="<?= $order->product->name?>" placeholder="<?= $order->product->name?>" <?= ($userRoleId===3 ? 'style="pointer-events:none;"' : '')?> >
 			    </p>
 			    <p>
 			    	<label for="product_quantity"><?= __('Quantity')?></label>
-				    <input id="product_quantity" type="number" name="product_quantity" value="<?= $order->quantity?>" placeholder="<?= $order->quantity?>">
+				    <input id="product_quantity" type="number" name="product_quantity" value="<?= $order->quantity?>" placeholder="<?= $order->quantity?>" <?= ($userRoleId===3 ? 'style="pointer-events:none;"' : '')?> >
 			    </p>
 			    <p>
 			    	<label for="order_date"><?= __('Date')?></label>
-				    <input id="order_date" type="date" name="order_date" value="<?= $order->order_date?>">
+				    <input id="order_date" type="date" name="order_date" value="<?= $order->order_date?>" <?= ($userRoleId===3 ? 'style="pointer-events:none;"' : '')?> >
 			    </p>
 			</div>
 			<div class="col-sm-6">
 			    <p>
 			    	<label for="product_size"><?= __('Size')?></label>
-				    <input id="product_size" type="text" name="product_size" value="<?= $order->product->size?>" placeholder="<?= $order->product->size?>">
+				    <input id="product_size" type="text" name="product_size" value="<?= $order->product->size?>" placeholder="<?= $order->product->size?>" <?= ($userRoleId===3 ? 'style="pointer-events:none;"' : '')?> >
 			    </p>
 			    <p>
 			    	<label for="product_price"><?= __('Price')?></label>
-				    <input id="product_price" type="text" name="product_price" value="<?= $order->price?>" placeholder="<?= $order->price?>">
+				    <input id="product_price" type="text" name="product_price" value="<?= $order->price?>" placeholder="<?= $order->price?>" <?= ($userRoleId===3 ? 'style="pointer-events:none;"' : '')?> >
 			    </p>
 			    <p>
 			    	<label for="create_note"><?= __('Note')?></label>
-				    <input id="create_note" type="text" name="create_note" value="<?= $order->create_note?>" placeholder="<?= $order->create_note?>">
+				    <input id="create_note" type="text" name="create_note" value="<?= $order->create_note?>" placeholder="<?= $order->create_note?>" <?= ($userRoleId===3 ? 'style="pointer-events:none;"' : '')?> >
 			    </p>
 			    <p>
 			    	<?php if (!empty($order->product->product_photo->path)):?>

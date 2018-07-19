@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `product_photos` (
 
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_code` varchar(50) NOT NULL DEFAULT '',
+  `order_code` varchar(10) NOT NULL DEFAULT '',
   `customer_id` int(11) DEFAULT 0,
   `price` float(10) DEFAULT 0,
   `quantity` int(11) DEFAULT 0,

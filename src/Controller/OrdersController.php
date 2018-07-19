@@ -129,9 +129,29 @@ class OrdersController extends CrudController {
                 return $this->Flash->error(__('Unable to create/update customer.'));
             }
             // Log::info($customer);
+
+            $latestOrder = $this->model->find('all', [
+                'conditions' => [],
+                'fields' => [
+                    'id',
+                ],
+                'order' => [
+                    'id' => 'DESC',
+                ],
+            ])->first();
+
+            if (empty($latestOrder)) {
+                $nextOrderId = '1';
+            } else {
+                $nextOrderId = (int)$latestOrder->id + 1;
+                $nextOrderId = (string)$nextOrderId;
+
+                $nextOrderId = str_pad($nextOrderId, 5, "0", STR_PAD_LEFT);
+            }
+
             // Create order.
             $orderDatas = [
-                'order_code' => Time::now()->toUnixString(),
+                'order_code' => $nextOrderId,
                 'customer_id' => $customer->id,
                 'price' => $this->request->data['product_price'],
                 'quantity' => $this->request->data['product_quantity'],
@@ -219,6 +239,10 @@ class OrdersController extends CrudController {
             }        
         }
         $this->set(compact('order'));
+
+        $userRoleId = $this->User->getUserRoleId($this->Auth->user('id'));
+
+        $this->set(compact('userRoleId'));
 
         $productCategories = $this->ProductCategory->list();
         $this->set(compact('productCategories'));
