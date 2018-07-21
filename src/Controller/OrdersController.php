@@ -249,7 +249,7 @@ class OrdersController extends CrudController {
         if (!empty($order)) {
 
             if (!empty($order->order_date)) {
-                $order->order_date = date('Y-m-d', strtotime($order->order_date));
+                $order->order_date = $order->order_date->i18nFormat('yyyy-MM-dd');
             }            
 
             if (!empty($order->product->product_photo->path)) {
@@ -298,7 +298,6 @@ class OrdersController extends CrudController {
             // Log::info($customer);
             // Create order.
             $orderDatas = [
-                'order_code' => $customer->phone,
                 'customer_id' => $customer->id
             ];
 

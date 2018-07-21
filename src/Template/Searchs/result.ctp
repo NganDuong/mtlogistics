@@ -13,7 +13,7 @@
     </tr>
     <?php foreach ($orders as $order): ?>
     <tr>
-        <td><?= $this->Html->link($order->order_code, ['action' => 'view', $order->id]) ?></td>
+        <td><?= $this->Html->link($order->order_code, ['controller' => 'Orders', 'action' => 'view', $order->id]) ?></td>
         <td><?= h($order->customer->name) ?></td>
         <td><?= $this->Html->link($order->customer->phone, ['controller' => 'Customers', 'action' => 'view', $order->customer_id]) ?></td>
         <td><?= h($order->product->name) ?></td>
