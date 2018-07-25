@@ -68,6 +68,7 @@ class OrdersController extends CrudController {
         }            
 
         $this->set(compact('orders'));
+
         $next = 0;
         $prev = 0;
         $hasMore = (($total - $_page * LIMIT) > 0) ? $total - $_page * LIMIT : 0;
@@ -79,6 +80,9 @@ class OrdersController extends CrudController {
         if ($_page - 1 > 0) {
            $prev = $_page - 1;
         }
+        $currentPage = $_page;
+
+        $this->set(compact('currentPage'));
         $this->set(compact('total'));
         $this->set(compact('hasMore'));
         $this->set(compact('next'));
@@ -225,8 +229,9 @@ class OrdersController extends CrudController {
                     return $this->Flash->error(__('Unable to upload file, please try again.'));
                 }
             }
+            $this->Flash->success(__('Order created'));
 
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'create']);
         }
     }
 
@@ -366,9 +371,10 @@ class OrdersController extends CrudController {
                         return $this->Flash->error(__('Unable to upload file, please try again.'));
                     }
                 }
-            }  
+            }
+            $this->Flash->success(__('Order updated'));
 
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'view', $id]);
         }
     }
 
@@ -427,9 +433,11 @@ class OrdersController extends CrudController {
 
                     return $this->Flash->error(__('Unable to confirm sent.'));
                 }
+                $this->Flash->success(__('Order updated'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $id]);
             }
+
 
             return $this->Flash->error(__('Unable to confirm sent.'));
         }
@@ -464,8 +472,9 @@ class OrdersController extends CrudController {
                     
                     return $this->Flash->error(__('Unable to confirm delivered.'));
                 }
+                $this->Flash->success(__('Order updated'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'view', $id]);
             }
 
             return $this->Flash->error(__('Unable to confirm delivered.'));

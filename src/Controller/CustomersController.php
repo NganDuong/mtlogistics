@@ -49,8 +49,9 @@ class CustomersController extends CrudController {
                 Log::info($customer->errors());
                 return $this->Flash->error(__('Unable to update customer.'));
             }
-            
-            return $this->redirect(['action' => 'index']);
+            $this->Flash->success(__('Customer updated'));
+
+            return $this->redirect(['action' => 'view', $id]);
         }
     }
 }

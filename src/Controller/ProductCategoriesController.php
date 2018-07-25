@@ -42,6 +42,7 @@ class ProductCategoriesController extends CrudController {
 	        if (!$this->model->save($category)) {
 	        	$this->Flash->error(__('Unable to create category.'));
 	        }
+            $this->Flash->success(__('Category saved'));
 
 	        return $this->redirect(['action' => 'index']);
     	}
