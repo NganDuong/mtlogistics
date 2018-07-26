@@ -68,10 +68,6 @@
 			    <label style="font-weight: bold;"><?= __('Carrier')?></label>
 			    <div class="row">
 			    	<div class="col-sm-4">
-			    		<label for="carrier"><?= __('Carrier')?></label>
-					    <input id="carrier" type="text" name="carrier" value="" placeholder="<?= __('Carrier')?>">
-			    	</div>
-					<div class="col-sm-4">
 						<label for="delivery_method_id"><?= __('Delivery Method')?></label>
 					    <select name="delivery_method_id">
 					    	<option value="0"><?= __('All')?></option>
@@ -79,7 +75,11 @@
 							    <option value="<?= $method->id?>"><?= $method->name?></option>
 							<?php endforeach;?>
 					    </select>
-					</div>			
+					</div>
+			    	<div class="col-sm-4">
+			    		<label for="carrier"><?= __('Carrier')?></label>
+					    <input id="carrier" type="text" name="carrier" value="" placeholder="<?= __('Carrier')?>">
+			    	</div>								
 			    </div>
 			    <input style="float: right;" type="submit" value="<?= __('Submit')?>">
 		  	</fieldset>

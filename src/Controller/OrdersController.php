@@ -29,7 +29,7 @@ class OrdersController extends CrudController {
     public function isAuthorized($user) {
         $action = $this->request->getParam('action');
         // The add and tags actions are always allowed to logged in users.
-        if (in_array($action, ['index', 'create', 'view', 'update', 'delete', 'sent', 'delivered'])) {
+        if (in_array($action, ['index', 'create', 'view', 'update', 'delete', 'sent', 'delivered', 'print'])) {
 
             return true;
         }
@@ -64,6 +64,11 @@ class OrdersController extends CrudController {
                 $order->delivered_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/checked.png';
             } else {
                 $order->delivered_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/uncheck.png';
+            }
+
+            if (!empty($order->order_date)) {
+                $order->order_date = $order->order_date->i18nFormat('dd/MM/YYYY');
+                // $data['from_date'] = date('Y/m/d H:i:s', strtotime(str_replace('/', '-', $data['from_date'])));
             }
         }            
 
@@ -479,5 +484,80 @@ class OrdersController extends CrudController {
 
             return $this->Flash->error(__('Unable to confirm delivered.'));
         }
+    }
+
+    public function print($orderId, $type) {
+        switch ($type) {
+            case 1:
+                $order = $this->_printForShipper($orderId);
+                $this->set(compact('order'));
+
+                break;
+
+            case 2:
+                $order = $this->_printForCarrier($orderId);
+                $this->set(compact('order'));
+
+                break;
+
+            case 3:
+                $order = $this->_printForPostOffice($orderId);
+                $this->set(compact('order'));
+
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+    }
+
+    private function _printForShipper($orderId) {
+        $result = [];
+        $order = $this->Order->getOrderForPrint($orderId);
+
+        if (!empty($order)) {
+            $result = [
+                'customer_name' => $order->customer->name,
+                'customer_phone' => $order->customer->phone,
+                'customer_address' => $order->customer->address,
+                'product_info' => $order->product->product_category->name . ' - ' . $order->quantity,
+                'amount' => $order->price * $order->quantity,
+            ];
+        }
+
+        return $result;
+    }
+
+    private function _printForCarrier($orderId) {
+        $result = [];
+        $order = $this->Order->getOrderForPrint($orderId);
+
+        if (!empty($order)) {
+            $result = [
+                'customer_name' => $order->customer->name,
+                'customer_phone' => $order->customer->phone,
+                'customer_address' => $order->customer->address,
+                'product_info' => $order->product->product_category->name . ' - ' . $order->quantity,
+            ];
+        }
+
+        return $result;
+    }
+
+    private function _printForPostOffice($orderId) {
+        $result = [];
+        $order = $this->Order->getOrderForPrint($orderId);
+
+        if (!empty($order)) {
+            $result = [
+                'customer_name' => $order->customer->name,
+                'customer_phone' => $order->customer->phone,
+                'customer_address' => $order->customer->address,
+                'product_info' => $order->product->product_category->name . ' - ' . $order->quantity,
+            ];
+        }
+
+        return $result;
     }
 }

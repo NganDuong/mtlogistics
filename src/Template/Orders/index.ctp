@@ -35,7 +35,6 @@
     <?php endforeach; ?>
 </table>
 <div class="pagination">
-    <?php for ($i = 1; $i <= $hasMore + 1; $i++) { ?>    
-       <?= $this->Html->link($i, ['action' => 'index', $i]) ?>    
-    <?php }?>
+    <?= ($prev > 0) ? $this->Html->link(__('prev'), ['action' => 'index', $prev]) : '' ?>
+    <?= ($next > 0) ? $this->Html->link(__('next'), ['action' => 'index', $next]) : '' ?>
 </div>

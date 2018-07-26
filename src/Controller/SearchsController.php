@@ -14,15 +14,150 @@ class SearchsController extends AppController {
         parent::initialize();
         $this->loadComponent('ProductCategory');
         $this->loadComponent('DeliveryMethod');
+        $this->loadComponent('Order');
     }
 
     public function isAuthorized($user) {
         $action = $this->request->getParam('action');
         // The add and tags actions are always allowed to logged in users.
-        if (in_array($action, ['index', 'view', 'update', 'delete', 'sent', 'delivered'])) {
+        if (in_array($action, ['index', 'view', 'update', 'delete', 'sent', 'delivered', 'print'])) {
 
             return true;
         }
+    }
+
+    public function print($orderIds, $type) {
+        $orderIds = explode(',', $orderIds);
+
+        switch ($type) {
+            case 1:
+                $order = $this->_printForShipper($orderIds);
+                $this->set(compact('order'));
+
+                break;
+
+            case 2:
+                $order = $this->_printForCarrier($orderIds);
+                $this->set(compact('order'));
+
+                break;
+
+            case 3:
+                $order = $this->_printForPostOffice($orderIds);
+                $this->set(compact('order'));
+
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+    }
+
+    private function _printForShipper($orderIds) {
+        $orders = $this->Order->getOrderSearchForPrint($orderIds);
+
+        if (!empty($orders)) {
+            $totalOrder = count($orders);
+            $totalAmout = 0;
+            $carrier = $orders[0]->delivery_name;
+            $_orders = [];
+            foreach ($orders as $order) {
+                $totalAmout += $order->price * $order->quantity;
+                $_order = [
+                    'id' => $order->id,                
+                    'order_code' => $order->order_code,
+                    'customer_name' => $order->customer->name,
+                    'customer_phone' => $order->customer->phone,
+                    'customer_address' => $order->customer->address,
+                    'product' => $order->product->name,
+                    'quantity' => $order->quantity,
+                    'amount' => $order->price * $order->quantity,
+                    'note' => $order->create_note . '. ' . $order->delivery_note,
+                ];
+                $_orders[] = $_order;
+            }                
+        }
+
+        $result = [
+            'summary' => [
+                'export_date' => Time::now()->i18nFormat('dd/MM'),
+                'carrier' => $carrier,
+                'totalOrder' => $totalOrder,
+                'totalAmout' => $totalAmout,
+            ],
+            'details' => $_orders,
+        ];
+
+        return $result;
+    }
+
+    private function _printForCarrier($orderId) {
+        $orders = $this->Order->getOrderSearchForPrint($orderIds);
+
+        if (!empty($orders)) {
+            $totalOrder = count($orders);
+            $carrier = $orders[0]->delivery_name;
+            $_orders = [];
+            foreach ($orders as $order) {
+                $totalAmout += $order->price * $order->quantity;
+                $_order = [
+                    'id' => $order->id,
+                    'order_code' => $order->order_code,
+                    'customer_name' => $order->customer->name,
+                    'customer_phone' => $order->customer->phone,
+                    'customer_address' => $order->customer->address,
+                    'product' => $order->product->name,
+                    'quantity' => $order->quantity,
+                ];
+                $_orders[] = $_order; 
+            }                
+        }
+
+        $result = [
+            'summary' => [
+                'export_date' => Time::now()->i18nFormat('dd/MM'),
+                'carrier' => $carrier,
+                'totalOrder' => $totalOrder,
+            ],
+            'details' => $_orders,
+        ];
+
+        return $result;
+    }
+
+    private function _printForPostOffice($orderId) {
+        $orders = $this->Order->getOrderSearchForPrint($orderIds);
+
+        if (!empty($orders)) {
+            $totalOrder = count($orders);
+            $carrier = $orders[0]->delivery_name;
+            $_orders = [];
+            foreach ($orders as $order) {
+                $totalAmout += $order->price * $order->quantity;
+                $_order = [
+                    'id' => $order->id,
+                    'order_code' => $order->order_code,
+                    'customer_name' => $order->customer->name,
+                    'customer_phone' => $order->customer->phone,
+                    'customer_address' => $order->customer->address,
+                    'product' => $order->product->name,
+                    'quantity' => $order->quantity,
+                ];
+                $_orders[] = $_order;
+            }                
+        }
+
+        $result = [
+            'summary' => [
+                'export_date' => Time::now()->i18nFormat('dd/MM'),
+                'carrier' => $carrier,
+                'totalOrder' => $totalOrder,
+            ],
+            'details' => $_orders,
+        ];
+
+        return $result;
     }
 
     public function index($page = 0) {
@@ -31,6 +166,8 @@ class SearchsController extends AppController {
 
         $deliveryMethods = $this->DeliveryMethod->list();
         $this->set(compact('deliveryMethods'));
+
+        $printType = 0;
 
         if ($this->request->is('post')) {
             // Search by order.
@@ -229,11 +366,33 @@ class SearchsController extends AppController {
                 $orderConditions = array_merge($orderConditions, $_conditions);
             }
 
-            // Log::info($orderConditions);
+            if (!empty($this->request->data['delivery_method_id']) && !empty($this->request->data['carrier'])) {
+                
+                switch ($this->request->data['delivery_method_id']) {
+                    case 1:
+                        # Shipper
+                        $printType = 1;
+                        break;
+
+                    case 2:
+                        # Post Office
+                        $printType = 2;
+                        break;
+
+                    case 3:
+                        # Carrier
+                        $printType = 3;
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+            }
 
             if (!empty($orderConditions)) {
                 $this->loadModel('Orders');
-                $_page = !empty($page) ? $page : PAGE;
+
                 $orders = $this->Orders->find('all', [
                     'conditions' => $orderConditions,
                     'contain' => [
@@ -243,9 +402,11 @@ class SearchsController extends AppController {
                             'ProductCategories'
                         ],
                     ],
-                    'limit' => LIMIT,
-                    'page' => $_page,
+                    // 'limit' => LIMIT,
+                    // 'page' => $_page,
                 ])->toArray();
+
+                $orderIds = [];
 
                 foreach ($orders as $order) {
                     if (!empty($order->sent)) {
@@ -259,28 +420,18 @@ class SearchsController extends AppController {
                     } else {
                         $order->delivered_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/uncheck.png';
                     }
+
+                    $orderIds[] = $order->id;
                 }
+
+                $orderIds = implode(',', $orderIds);
                 
                 $this->set('orders', $orders);
-                $total = count($orders);
-                $next = 0;
-                $prev = 0;
-                $hasMore = (($total - $_page * LIMIT) > 0) ? $total - $_page * LIMIT : 0;
-
-                if ($_page * LIMIT < $total) {
-                   $next = $_page + 1;
-                }
-
-                if ($_page - 1 > 0) {
-                   $prev = $_page - 1;
-                }
-                $this->set(compact('total'));
-                $this->set(compact('hasMore'));
-                $this->set(compact('next'));
-                $this->set(compact('prev'));
+                $this->set('orderIds', $orderIds);
+                $this->set('print', $printType);
 
                 return $this->render('/Searchs/result');
             }                
         }
-    }
+    }    
 }

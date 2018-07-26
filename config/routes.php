@@ -54,6 +54,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->scope('/searchs', ['controller' => 'Searchs'], function($routes) {
         $routes->connect('/', ['action' => 'index']);
+        $routes->connect('/print/:id/:type', ['action' => 'print'], ['pass' => ['id', 'type']]);
     });
 
 	$routes->scope('/customers', ['controller' => 'Customers'], function($routes) {
@@ -80,6 +81,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 
         $routes->connect('/sent/:id', ['action' => 'sent'], ['pass' => ['id']]);
         $routes->connect('/delivered/:id', ['action' => 'delivered'], ['pass' => ['id']]);
+        $routes->connect('/print/:id/:type', ['action' => 'print'], ['pass' => ['id', 'type']]);
     });
 
     $routes->scope('/products', function($routes) {

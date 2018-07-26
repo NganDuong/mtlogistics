@@ -13,4 +13,42 @@ class OrderComponent extends CrudComponent {
 		$this->model = TableRegistry::get('Orders');
 		$this->modelName = 'Orders';		
 	}
+
+	public function getOrderForPrint($id, $fields = []) {
+
+		return $this->model->find('all', [
+			'conditions' => [
+				'Orders.id' => $id,
+			],
+			'contain' => [
+				'Customers',
+                'PaymentMethods',
+                'DeliveryMethods',
+                'Products' => [
+                    'ProductPhotos',
+                    'ProductCategories',
+                ],
+			],
+			'fields' => $fields,
+		])->first();
+	}
+
+	public function getOrderSearchForPrint($ids, $fields = []) {
+
+		return $this->model->find('all', [
+			'conditions' => [
+				'Orders.id IN' => $ids,
+			],
+			'contain' => [
+				'Customers',
+                'PaymentMethods',
+                'DeliveryMethods',
+                'Products' => [
+                    'ProductPhotos',
+                    'ProductCategories',
+                ],
+			],
+			'fields' => $fields,
+		])->toArray();
+	}
 }
