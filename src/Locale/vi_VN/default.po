@@ -144,3 +144,15 @@ msgstr "Tổng đơn"
 
 msgid "Total amout"
 msgstr "Tổng thu"
+
+msgid "Sent at"
+msgstr "Ngày gửi"
+
+msgid "Payment method"
+msgstr "Phương thức thanh toán"
+
+msgid "Delivered at"
+msgstr "Ngày giao"
+
+msgid "Delivery method"
+msgstr "Phương thức vận chuyển"

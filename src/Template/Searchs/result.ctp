@@ -34,7 +34,7 @@
     </tr>
     <?php endforeach; ?>
 </table>
-<div class="print row">
+<div class="print_button row">
     <?= ($print !== 0) ? $this->Html->link(__('Print'), ['action' => 'print', $orderIds, $print], ['class' => 'button button-link']) : '' ?>
 </div>
 <div class="pagination">

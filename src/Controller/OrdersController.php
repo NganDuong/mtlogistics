@@ -68,7 +68,6 @@ class OrdersController extends CrudController {
 
             if (!empty($order->order_date)) {
                 $order->order_date = $order->order_date->i18nFormat('dd/MM/YYYY');
-                // $data['from_date'] = date('Y/m/d H:i:s', strtotime(str_replace('/', '-', $data['from_date'])));
             }
         }            
 
@@ -407,6 +406,10 @@ class OrdersController extends CrudController {
 
         if (!empty($order->product->product_photo->path)) {
             $order->product->product_photo->path = 'http://' . $_SERVER['HTTP_HOST'] . DS . $order->product->product_photo->path;
+        }
+
+        if (!empty($order->order_date)) {
+            $order->order_date = $order->order_date->i18nFormat('dd/MM/YYYY');
         }
 
         // Log::info($order);
