@@ -121,11 +121,11 @@ msgstr "Phương thức vận chuyển"
 msgid "All"
 msgstr "Tất cả"
 
-msgid "prev"
-msgstr "Trước"
+msgid "< prev"
+msgstr "< Trước"
 
-msgid "next"
-msgstr "Tiếp theo"
+msgid "next >"
+msgstr "Tiếp theo >"
 
 msgid "Customer's name"
 msgstr "Tên khách hàng"
