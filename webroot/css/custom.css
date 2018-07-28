@@ -236,3 +236,12 @@ tr:nth-child(even) {
     background-color: #cacaca;
     color: #5a5a5a;
 }
+
+.custom-select select option{
+    position: absolute;
+    background-color: #fff;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}    
