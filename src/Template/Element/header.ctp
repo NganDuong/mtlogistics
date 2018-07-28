@@ -8,8 +8,9 @@
 	</span>
 	|
 	<div class="dropdown top-bar-dropdown">
-		<span style="color: #fff">Menu</span>
-		<div class="dropdown-content">
+		<button onclick="myFunction()" class="menu-dropbtn">Menu</button>
+		<!-- <span style="color: #fff">Menu</span> -->
+		<div class="dropdown-content" id="myDropdown">
 			<p><?= $this->Html->link(__('Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></p>
 			<p><?= $this->Html->link(__('Product Categories'), ['controller' => 'ProductCategories', 'action' => 'index']) ?></p>
 			<p>
