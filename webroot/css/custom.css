@@ -121,3 +121,41 @@ input[type="submit"] {
 .padding_top {
     padding-top: 100px;
 }
+
+.login-form {    
+    margin: auto;
+    width: 50%;
+    padding-top: 20%;
+}
+
+.login-form-content {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 6px 5px 5px rgba(0, 0, 0, 0.3);
+    
+}
+
+.body-login {
+    background-color: #f3b573;
+}
+
+.center {
+    text-align: center;
+}
+
+.login-form-content input {
+    box-shadow: none;
+    background-color: #e8e7e7;
+    border-color: #fff;
+}
+
+.submit-button {
+    width: 100%;
+    background-color: #f3b21b !important;
+    border-radius: 0px !important;
+}
+
+.login-form-content label {
+    font-weight: bold;
+    padding: 5px;
+}    

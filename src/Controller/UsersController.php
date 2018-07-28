@@ -40,6 +40,7 @@ class UsersController extends CrudController {
 	}
 
     public function login() {
+    	$this->layout = false;
 
 	    if ($this->request->is('post')) {
 	        $user = $this->Auth->identify();
