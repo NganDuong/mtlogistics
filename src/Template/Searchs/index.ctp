@@ -1,4 +1,4 @@
-<div class="panel panel-info">
+<div class="panel">
 	<div class="panel-heading" style="text-align: center;">
 		<h3>
 			<?= __('SEARCH')?>

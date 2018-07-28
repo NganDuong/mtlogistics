@@ -123,9 +123,9 @@
 		<div class="row">			
 			<div class="col-sm-6">
 				<?= $this->Html->link(__('Edit'), ['action' => 'update', $order->id], ['class' => 'button button-link']) ?>
-				<?= $this->Html->link(__('Print for shipper'), ['action' => 'print', $order->id, 1], ['class' => 'button button-link']) ?>
-				<?= $this->Html->link(__('Print for carrier'), ['action' => 'print', $order->id, 2], ['class' => 'button button-link']) ?>
-				<?= $this->Html->link(__('Print for post office'), ['action' => 'print', $order->id, 3], ['class' => 'button button-link']) ?>
+				<?= $this->Html->link(__('Print for shipper'), ['action' => 'print', $order->id, 1], ['class' => 'button button-link', 'target' => '_blank']) ?>
+				<?= $this->Html->link(__('Print for carrier'), ['action' => 'print', $order->id, 2], ['class' => 'button button-link', 'target' => '_blank']) ?>
+				<?= $this->Html->link(__('Print for post office'), ['action' => 'print', $order->id, 3], ['class' => 'button button-link', 'target' => '_blank']) ?>
 			</div>
 			<div class="col-sm-6">
 				<?php if (empty($order->sent)): ?>

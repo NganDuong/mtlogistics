@@ -490,6 +490,7 @@ class OrdersController extends CrudController {
     }
 
     public function print($orderId, $type) {
+        $this->layout = false;
         switch ($type) {
             case 1:
                 $order = $this->_printForShipper($orderId);

@@ -27,6 +27,7 @@ class SearchsController extends AppController {
     }
 
     public function print($orderIds, $type) {
+        $this->layout = false;
         $orderIds = explode(',', $orderIds);
 
         switch ($type) {
@@ -60,7 +61,7 @@ class SearchsController extends AppController {
         if (!empty($orders)) {
             $totalOrder = count($orders);
             $totalAmout = 0;
-            $carrier = $orders[0]->delivery_name;
+            $carrier = $orders[0]->delivery_method->name . '-' . $orders[0]->delivery_name;
             $_orders = [];
             foreach ($orders as $order) {
                 $totalAmout += $order->price * $order->quantity;
@@ -92,13 +93,14 @@ class SearchsController extends AppController {
         return $result;
     }
 
-    private function _printForCarrier($orderId) {
+    private function _printForCarrier($orderIds) {
         $orders = $this->Order->getOrderSearchForPrint($orderIds);
 
         if (!empty($orders)) {
             $totalOrder = count($orders);
-            $carrier = $orders[0]->delivery_name;
+            $carrier = $orders[0]->delivery_method->name . '-' . $orders[0]->delivery_name;
             $_orders = [];
+            $totalAmout = 0;
             foreach ($orders as $order) {
                 $totalAmout += $order->price * $order->quantity;
                 $_order = [
@@ -109,6 +111,8 @@ class SearchsController extends AppController {
                     'customer_address' => $order->customer->address,
                     'product' => $order->product->name,
                     'quantity' => $order->quantity,
+                    'amount' => '',
+                    'note' => '',
                 ];
                 $_orders[] = $_order; 
             }                
@@ -119,6 +123,7 @@ class SearchsController extends AppController {
                 'export_date' => Time::now()->i18nFormat('dd/MM'),
                 'carrier' => $carrier,
                 'totalOrder' => $totalOrder,
+                'totalAmout' => '',
             ],
             'details' => $_orders,
         ];
@@ -126,13 +131,14 @@ class SearchsController extends AppController {
         return $result;
     }
 
-    private function _printForPostOffice($orderId) {
+    private function _printForPostOffice($orderIds) {
         $orders = $this->Order->getOrderSearchForPrint($orderIds);
 
         if (!empty($orders)) {
             $totalOrder = count($orders);
-            $carrier = $orders[0]->delivery_name;
+            $carrier = $orders[0]->delivery_method->name . '-' . $orders[0]->delivery_name;
             $_orders = [];
+            $totalAmout = 0;
             foreach ($orders as $order) {
                 $totalAmout += $order->price * $order->quantity;
                 $_order = [
@@ -143,6 +149,8 @@ class SearchsController extends AppController {
                     'customer_address' => $order->customer->address,
                     'product' => $order->product->name,
                     'quantity' => $order->quantity,
+                    'amount' => '',
+                    'note' => '',
                 ];
                 $_orders[] = $_order;
             }                
@@ -153,6 +161,7 @@ class SearchsController extends AppController {
                 'export_date' => Time::now()->i18nFormat('dd/MM'),
                 'carrier' => $carrier,
                 'totalOrder' => $totalOrder,
+                'totalAmout' => '',
             ],
             'details' => $_orders,
         ];

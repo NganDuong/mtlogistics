@@ -225,6 +225,10 @@ tr:nth-child(even) {
     max-width: 15px;
 }
 
+table tr td {
+    word-break: break-word;
+}    
+
 .order-form {
     background-color: #fff;
     padding: 10px;
@@ -277,4 +281,22 @@ tr:nth-child(even) {
 
 .bold {
     font-weight: bold;
+}
+
+.table-print, .table-print tr th{
+    color: #000;
+}
+
+.table-print tr th {
+    text-align: center;
+}
+
+.table-print, .table-print tr th, .table-print td {
+    border: 1px solid;
+    box-shadow: none;
+}
+
+.form-print {
+    background-color: #fff;
+    padding: 20px;
 }

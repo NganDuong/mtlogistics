@@ -34,9 +34,11 @@
     </tr>
     <?php endforeach; ?>
 </table>
-<div class="print_button row">
-    <?= ($print !== 0) ? $this->Html->link(__('Print'), ['action' => 'print', $orderIds, $print], ['class' => 'button button-link']) : '' ?>
-</div>
+<?php if(!empty($orderIds)): ?>
+    <div class="print_button row">
+        <?= ($print !== 0) ? $this->Html->link(__('Print'), ['action' => 'print', $orderIds, $print], ['class' => 'button button-link', 'target' => '_blank']) : '' ?>
+    </div>
+<?php endif;?>    
 <div class="pagination">
     <?php // ($prev > 0) ? $this->Html->link(__('prev'), ['action' => 'index', $prev]) : '' ?>
     <?php // ($next > 0) ? $this->Html->link(__('next'), ['action' => 'index', $next]) : '' ?>

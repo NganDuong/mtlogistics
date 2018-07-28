@@ -24,35 +24,33 @@
 <body class="body-login">
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
-    	<div class="container clearfix">
-			<div class="login-form">
-				<div class="login-form-content">
-					<h2 class="header center uppercase"><?= __('Login')?></h2>
-					<form action="/users/login" method="post">
-						<div class="row">
-							<div class="col-md-3">
-								<label><?= __('Username')?></label>
-							</div>
-							<div class="col-md-9">
-								<input type="text" name="username" placeholder="<?= __('Username')?>">
-							</div>
+		<div class="login-form">
+			<div class="login-form-content">
+				<h2 class="header center uppercase"><?= __('Login')?></h2>
+				<form action="/users/login" method="post">
+					<div class="row">
+						<div class="col-md-3">
+							<label><?= __('Username')?></label>
 						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<label><?= __('Password')?></label>
-							</div>
-							<div class="col-md-9">
-								<input type="password" name="password" placeholder="<?= __('Password')?>">
-							</div>
+						<div class="col-md-9">
+							<input type="text" name="username" placeholder="<?= __('Username')?>">
 						</div>
-						<div class="row">
-							<div class="col-md-12">
-								<input class="submit-button" type="submit" name="submit" value="<?= __('Login')?>">
-							</div>						
-						</div>					
-					</form>
-				</div>				
-			</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<label><?= __('Password')?></label>
+						</div>
+						<div class="col-md-9">
+							<input type="password" name="password" placeholder="<?= __('Password')?>">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<input class="submit-button" type="submit" name="submit" value="<?= __('Login')?>">
+						</div>						
+					</div>					
+				</form>
+			</div>				
 		</div>
     </div>
     <footer>
