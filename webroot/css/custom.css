@@ -244,4 +244,37 @@ tr:nth-child(even) {
     left: 0;
     right: 0;
     z-index: 99;
-}    
+}
+
+.panel {
+    border-radius: 0px;
+    margin-top: 10px;
+    box-shadow: 4px 2px 5px rgba(0, 0, 0, 0.3);
+    border-color: transparent;
+    background-color: #fff;
+}
+
+.panel .panel-heading {
+    border-bottom: solid 1px #e2a24c;
+}
+
+.padding-bot-5 {
+    padding-bottom: 5px;
+}
+
+.italic {
+    font-style: italic;
+    color: #4e4d4d;
+}
+
+.order-form-content {
+    width: 100%;
+    text-align: right;
+    background-color: #fbeddf;
+    padding: 5px;
+    float: right;
+}
+
+.bold {
+    font-weight: bold;
+}

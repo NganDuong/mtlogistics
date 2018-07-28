@@ -103,6 +103,9 @@ msgstr "Đăng xuất"
 msgid "Detail"
 msgstr "Chi tiết"
 
+msgid "Details"
+msgstr "Chi tiết"
+
 msgid "Choose a payment method"
 msgstr "Chọn phương thức thanh toán"
 
