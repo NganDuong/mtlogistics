@@ -158,4 +158,8 @@ input[type="submit"] {
 .login-form-content label {
     font-weight: bold;
     padding: 5px;
-}    
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
