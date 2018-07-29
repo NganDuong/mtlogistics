@@ -159,3 +159,9 @@ msgstr "Ngày giao"
 
 msgid "Delivery method"
 msgstr "Phương thức vận chuyển"
+
+msgid "Not delivered"
+msgstr "Chưa giao"
+
+msgid "Not sent"
+msgstr "Chưa gửi"
