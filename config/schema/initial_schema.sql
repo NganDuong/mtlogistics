@@ -113,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `order_date` timestamp NULL DEFAULT NULL,
   `sent` timestamp NULL DEFAULT NULL,
   `delivered` timestamp NULL DEFAULT NULL,
+  `status` int(11) DEFAULT 0,
   `created` timestamp NULL DEFAULT NULL,
   `modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),

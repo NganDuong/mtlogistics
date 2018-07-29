@@ -79,7 +79,19 @@
 			    	<div class="col-sm-4">
 			    		<label for="carrier"><?= __('Carrier')?></label>
 					    <input id="carrier" type="text" name="carrier" value="" placeholder="<?= __('Carrier')?>">
-			    	</div>								
+			    	</div>
+			    	<div class="col-sm-4">
+			    		<div class="row">
+			    			<div class="col-sm-6">
+			    				<label for="sent"><?= __('Not sent')?></label>
+			    				<input type="checkbox" name="not-sent" value="1">
+			    			</div>
+			    			<div class="col-sm-6">
+			    				<label for="delivered"><?= __('Not delivered')?></label>
+			    				<input type="checkbox" name="not-delivered" value="1">
+			    			</div>
+			    		</div>
+			    	</div>							
 			    </div>
 			    <input style="float: right;" type="submit" value="<?= __('Submit')?>">
 		  	</fieldset>

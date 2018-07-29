@@ -179,6 +179,7 @@ class SearchsController extends AppController {
         $printType = 0;
 
         if ($this->request->is('post')) {
+
             // Search by order.
         	$orderConditions = [];
 
@@ -399,6 +400,20 @@ class SearchsController extends AppController {
                 }
             }
 
+            if (!empty($this->request->data['not-sent'])) {
+                $_conditions = [
+                    'Orders.status' => STATUS_UNSENT,
+                ];
+                $orderConditions = array_merge($orderConditions, $_conditions);
+            }
+
+            if (!empty($this->request->data['not-delivered'])) {
+                $_conditions = [
+                    'Orders.status <= ' => STATUS_SENT,
+                ];
+                $orderConditions = array_merge($orderConditions, $_conditions);
+            }
+
             if (!empty($orderConditions)) {
                 $this->loadModel('Orders');
 
@@ -414,7 +429,6 @@ class SearchsController extends AppController {
                     // 'limit' => LIMIT,
                     // 'page' => $_page,
                 ])->toArray();
-
                 $orderIds = [];
 
                 foreach ($orders as $order) {
@@ -428,6 +442,10 @@ class SearchsController extends AppController {
                         $order->delivered_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/checked.png';
                     } else {
                         $order->delivered_img = 'http://' . $_SERVER['HTTP_HOST'] . DS . 'img/uncheck.png';
+                    }
+
+                    if (!empty($order->order_date)) {
+                        $order->order_date = $order->order_date->i18nFormat('dd/MM/YYYY');
                     }
 
                     $orderIds[] = $order->id;

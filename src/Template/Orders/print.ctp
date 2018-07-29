@@ -33,13 +33,13 @@
             <?php if(isset($order['customer_phone'])): ?>
 				<tr>
 	                <td><?= __('Phone')?></td>
-	                <td colspan="4"><?= $order['customer_phone']?></td>
+	                <td colspan="4" style="font-size: 20pt"><?= $order['customer_phone']?></td>
 	            </tr>
             <?php endif ?>
             <?php if(isset($order['customer_address'])): ?>
 				<tr>
 	                <td><?= __('Address')?></td>
-	                <td colspan="4"><?= $order['customer_address']?></td>
+	                <td colspan="4" style="font-size: 20pt"><?= $order['customer_address']?></td>
 	            </tr>
             <?php endif ?>
             <?php if(isset($order['product_info'])): ?>
@@ -51,7 +51,7 @@
             <?php if(isset($order['amount'])): ?>
 				<tr>
 	                <td><?= __('Collect')?></td>
-	                <td colspan="4"><?= $order['amount']?></td>
+	                <td colspan="4" style="font-size: 20pt"><?= $order['amount']?></td>
 	            </tr>
             <?php endif ?>
 		</table>

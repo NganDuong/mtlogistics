@@ -435,6 +435,7 @@ class OrdersController extends CrudController {
 
             if (!empty($order)) {
                 $order->sent = Time::now();
+                $order->status = STATUS_SENT;
 
                 if (!$this->model->save($order)) {
                     Log::info($order->errors());
@@ -470,6 +471,7 @@ class OrdersController extends CrudController {
 
             if (!empty($order)) {
                 $order->delivered = Time::now();
+                $order->status = STATUS_DELIVERED;
                 $order->delivery_note = $this->request->data['delivery_note'];
                 $order->delivery_method_id = $this->request->data['delivery_method_id'];
                 $order->delivery_name = $this->request->data['delivery_name'];
