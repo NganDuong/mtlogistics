@@ -13,9 +13,9 @@
     </tr>
     <?php foreach ($orders as $order): ?>
     <tr>
-        <td><?= $this->Html->link($order->order_code, ['controller' => 'Orders', 'action' => 'view', $order->id]) ?></td>
+        <td><?= $this->Html->link($order->order_code, ['controller' => 'Orders', 'action' => 'view', $order->id], ['target' => '_blank']) ?></td>
         <td><?= h($order->customer->name) ?></td>
-        <td><?= $this->Html->link($order->customer->phone, ['controller' => 'Customers', 'action' => 'view', $order->customer_id]) ?></td>
+        <td><?= $this->Html->link($order->customer->phone, ['controller' => 'Customers', 'action' => 'view', $order->customer_id], ['target' => '_blank']) ?></td>
         <td><?= h($order->product->name) ?></td>
         <td><?= h($order->price) ?></td>
         <td><?= h($order->quantity) ?></td>
