@@ -362,7 +362,8 @@ class OrdersController extends CrudController {
 
                     if (move_uploaded_file($this->request->data['product_image']['tmp_name'], $uploadFile)){
                         $this->loadModel('ProductPhotos');
-                        $uploadData = $order->product->product_photo;
+                        $uploadData = $this->ProductPhotos->newEntity();
+                        // $uploadData = $order->product->product_photo;
                         $uploadData->product_id = $product->id;
                         $uploadData->path = $uploadPath;
 
