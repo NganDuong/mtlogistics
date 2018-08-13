@@ -215,6 +215,7 @@ table {
     background-color: #e2a24c;
     color: #fff;
     border-bottom: 2px solid #a59017;
+    border-right: 1px solid #a59017;
 }
 
 tr:nth-child(even) {
@@ -227,6 +228,7 @@ tr:nth-child(even) {
 
 table tr td {
     word-break: break-word;
+    border-right: 1px solid #c7c4b1;
 }    
 
 .order-form {
@@ -299,4 +301,8 @@ table tr td {
 .form-print {
     background-color: #fff;
     padding: 20px;
+}
+
+.highlight-color {
+    color: #da7f18;
 }

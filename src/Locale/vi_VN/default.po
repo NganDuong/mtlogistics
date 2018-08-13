@@ -165,3 +165,10 @@ msgstr "Chưa giao"
 
 msgid "Not sent"
 msgstr "Chưa gửi"
+
+msgid "List of customers"
+msgstr "Danh sách khách hàng"
+
+msgid "List of product categories"
+msgstr "Danh sách loại hàng"
+

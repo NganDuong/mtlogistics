@@ -7,14 +7,14 @@
         <th><?= __('Actions')?></th>
     </tr>
     <tr>
-        <td><?= h($customer->name) ?></td>
-        <td><?= h($customer->nickname) ?></td>
-        <td><?= h($customer->phone) ?></td>
-        <td><?= h($customer->address) ?></td>
+        <td><?= h($object->name) ?></td>
+        <td><?= h($object->nickname) ?></td>
+        <td><?= h($object->phone) ?></td>
+        <td><?= h($object->address) ?></td>
         <td>
-            <?= $this->Html->link(__('Edit'), ['action' => 'update', $customer->id]) ?>
+            <?= $this->Html->link(__('Edit'), ['action' => 'update', $object->id]) ?>
             |
-            <?= $this->Html->link(__('Delete'), ['action' => 'delete', $customer->id]) ?>    
+            <?= $this->Html->link(__('Delete'), ['action' => 'delete', $object->id]) ?>    
         </td>
     </tr>
 </table>

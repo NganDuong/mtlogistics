@@ -17,11 +17,11 @@ class ProductCategoriesController extends CrudController {
         $this->modelName = 'ProductCategories';
     }
 
-    public function index() {
-    	$categories = $this->Paginator->paginate($this->model->find());
-        // Log::info($categories);
-        $this->set(compact('categories'));
-    }
+    // public function index() {
+    // 	$categories = $this->Paginator->paginate($this->model->find());
+    //     // Log::info($categories);
+    //     $this->set(compact('categories'));
+    // }
 
     public function create() {
 
