@@ -179,7 +179,6 @@ class SearchsController extends AppController {
         $printType = 0;
 
         if ($this->request->is('post')) {
-
             // Search by order.
         	$orderConditions = [];
 
@@ -414,9 +413,16 @@ class SearchsController extends AppController {
                 $orderConditions = array_merge($orderConditions, $_conditions);
             }
 
-            if (!empty($orderConditions)) {
-                $this->loadModel('Orders');
+            $this->loadModel('Orders');
 
+            // $total = $this->Orders->find('all', [
+            //     'conditions' => $orderConditions,
+            // ])->count();
+
+            // $_page = !empty($this->request->data['page']) ? $this->request->data['page'] : PAGE;
+
+
+            if (!empty($orderConditions)) {
                 $orders = $this->Orders->find('all', [
                     'conditions' => $orderConditions,
                     'contain' => [
@@ -456,6 +462,27 @@ class SearchsController extends AppController {
                 $this->set('orders', $orders);
                 $this->set('orderIds', $orderIds);
                 $this->set('print', $printType);
+
+                $this->set('conditions', $orderConditions);
+
+                // $next = 0;
+                // $prev = 0;
+                // $hasMore = (($total - $_page * LIMIT) > 0) ? $total - $_page * LIMIT : 0;
+
+                // if ($_page * LIMIT < $total) {
+                //    $next = $_page + 1;
+                // }
+
+                // if ($_page - 1 > 0) {
+                //    $prev = $_page - 1;
+                // }
+                // $currentPage = $_page;
+
+                // $this->set(compact('currentPage'));
+                // $this->set(compact('total'));
+                // $this->set(compact('hasMore'));
+                // $this->set(compact('next'));
+                // $this->set(compact('prev'));        
 
                 return $this->render('/Searchs/result');
             }                

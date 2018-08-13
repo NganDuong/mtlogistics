@@ -17,12 +17,6 @@ class ProductCategoriesController extends CrudController {
         $this->modelName = 'ProductCategories';
     }
 
-    // public function index() {
-    // 	$categories = $this->Paginator->paginate($this->model->find());
-    //     // Log::info($categories);
-    //     $this->set(compact('categories'));
-    // }
-
     public function create() {
 
     	if ($this->request->is('post')) {
@@ -55,8 +49,6 @@ class ProductCategoriesController extends CrudController {
                 'id' => $id,
             ],
         ])->first();
-        // Log::info($this->request->getParam('id'));
-        // Log::info($category);
 
         if (!empty($category)) {
             $this->set(compact('category'));

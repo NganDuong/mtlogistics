@@ -40,6 +40,9 @@ msgstr "Sửa"
 msgid "Delete"
 msgstr "Xóa"
 
+msgid "Delete"
+msgstr "Đã xóa"
+
 msgid "Create an order"
 msgstr "Tạo đơn hàng"
 
@@ -172,3 +175,11 @@ msgstr "Danh sách khách hàng"
 msgid "List of product categories"
 msgstr "Danh sách loại hàng"
 
+msgid "List of users"
+msgstr "Danh sách người dùng"
+
+msgid "Results for:"
+msgstr "Kết quả tìm kiếm cho:"
+
+msgid "List of orders"
+msgstr "Danh sách đơn hàng"

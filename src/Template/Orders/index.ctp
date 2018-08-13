@@ -1,3 +1,5 @@
+<br>
+<h3 class="center highlight-color"><?= __('List of orders')?></h3>
 <div class="table-responsive">
     <table class="table">
         <tr>

@@ -132,6 +132,7 @@ abstract class CrudController extends AppController {
                 return $this->Flash->error($object->errors());
             }
         }
+        $this->Flash->success(__('Deleted'));
 
         return $this->redirect(['action' => 'index']);
     }

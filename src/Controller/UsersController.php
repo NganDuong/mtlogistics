@@ -21,7 +21,7 @@ class UsersController extends CrudController {
         $this->loadComponent('User');
     }
 
-    public function index() {
+    public function index($page = 0) {
     	$userRoleId = $this->User->getUserRoleId($this->Auth->user('id'));
 
         if ($userRoleId !== ADMIN) {
@@ -29,14 +29,36 @@ class UsersController extends CrudController {
             return $this->Flash->error(__('You are not authorized to access that location'));
         }
 
-    	$users = $this->model->find('all', [
-    		'conditions' => [],
-    		'contain' => [
-    			'UserRoles',
-    		],
-    	])->toArray();
+    	$total = $this->model->find('all')->count();
 
-    	$this->set(compact('users'));
+        $_page = !empty($page) ? $page : PAGE;
+        $results = $this->model->find('all', [
+            'conditions' => [],
+            'contain' => ['UserRoles'],
+            'limit' => LIMIT,
+            'page' => $_page,
+        ])->toArray();           
+
+        $this->set(compact('results'));
+
+        $next = 0;
+        $prev = 0;
+        $hasMore = (($total - $_page * LIMIT) > 0) ? $total - $_page * LIMIT : 0;
+
+        if ($_page * LIMIT < $total) {
+           $next = $_page + 1;
+        }
+
+        if ($_page - 1 > 0) {
+           $prev = $_page - 1;
+        }
+        $currentPage = $_page;
+
+        $this->set(compact('currentPage'));
+        $this->set(compact('total'));
+        $this->set(compact('hasMore'));
+        $this->set(compact('next'));
+        $this->set(compact('prev'));
 	}
 
     public function login() {
@@ -99,5 +121,44 @@ class UsersController extends CrudController {
 
 	    	return $this->redirect(['action' => 'index']);
 	    }
+	}
+
+	/**
+     * Update method.
+     *
+     * @return mixed.
+     */
+	public function update($id) {
+		$this->loadModel('UserRoles');
+		$roles = $this->UserRoles->find('all', [
+            'conditions' => [],
+        ])->toArray();
+        $this->set(compact('roles'));
+
+		$object = $this->model->find('all', [
+            'conditions' => [
+                'Users.id' => $id,
+            ],
+            'contain' => ['UserRoles'],
+        ])->first();
+
+        $this->set(compact('object'));
+
+        if ($this->request->is('post')) {
+
+        	if (empty($this->request->data['password'])) {
+        		unset($this->request->data['password']);
+        	}
+
+            $object = $this->model->patchEntity($object, $this->request->data);
+
+            if (!$this->model->save($object)) {
+
+                return $this->Flash->error($object->errors());
+            }
+            $this->Flash->success(__('Updated'));
+
+            return $this->redirect(['action' => 'index']);
+        }
 	}
 }

@@ -70,6 +70,8 @@ Router::scope('/', function (RouteBuilder $routes) {
         $routes->connect('/logout', ['action' => 'logout']);
         $routes->connect('/', ['action' => 'index']);
         $routes->connect('/create', ['action' => 'create']);
+        $routes->connect('/update/:id', ['action' => 'update'], ['pass' => ['id']]);
+        $routes->connect('/delete/:id', ['action' => 'delete'], ['pass' => ['id']]);
     });
 
 	$routes->scope('/orders', ['controller' => 'Orders'], function($routes) {

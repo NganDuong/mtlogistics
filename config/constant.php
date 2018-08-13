@@ -1,5 +1,5 @@
 <?php
-define('LIMIT', 1);
+define('LIMIT', 20);
 define('PAGE', 1);
 
 define('ADMIN', 1);
